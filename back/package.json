@@ -1,0 +1,36 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Openclassrooms / Projet 7 / Groupomania",
+  "main": "server.js",
+  "scripts": {
+    "start": "node -r dotenv/config server",
+    "dev": "nodemon -r dotenv/config server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danieltrieu1/DanielTrieu_7_08072021.git"
+  },
+  "author": "Daniel Trieu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danieltrieu1/DanielTrieu_7_08072021/issues"
+  },
+  "homepage": "https://github.com/danieltrieu1/DanielTrieu_7_08072021#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "helmet": "^5.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.4",
+    "mysql2": "^2.3.3",
+    "path": "^0.12.7",
+    "sequelize": "^6.16.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
