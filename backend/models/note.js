@@ -2,20 +2,20 @@
 const { DataTypes } = require('sequelize')
 const DB = require('../db.config')
 
-// Définition du modèle Message
+// Définition du modèle Commentaire
 const Note = DB.define('Note', {
     id: {
-        type: DataTypes.INTEGER(10),
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
     user_id: {
         allowNull: false,
-        type: DataTypes.INTEGER(10)
+        type: DataTypes.INTEGER
     },
     title: {
-        allowNull: false,
-        type: DataTypes.STRING(100),
+        allowNull: true,
+        type: DataTypes.STRING,
         defaultValue: ""
     },
     content: {
@@ -28,17 +28,18 @@ const Note = DB.define('Note', {
         type: DataTypes.STRING,
         defaultValue: ""
     }
-    // ,
-    // like: {
-    //     allowNull: false,
-    //     type: DataTypes.INTEGER
-    // }
+    }, { classMethods: { associate: function(models) { models.Note.belongsTo(models.Post, {
+        onDelete: "CASCADE", }) } } 
 })
 
 // Synchronisation du modèles
 Note.sync()
     .then(() => { console.log('NOTE DB SYNC OK') })
+
 // Note.sync({ force: true })
+//     .then(() => { console.log('FORCE NOTE DB SYNC OK') })
+
 // Note.sync({ alter: true })
+//     .then(() => { console.log('ALTER NOTE DB SYNC OK') })
 
 module.exports = Note

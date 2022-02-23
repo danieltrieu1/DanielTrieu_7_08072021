@@ -1,7 +1,7 @@
 // Imports
 const express = require('express')
 
-const checkToken = require('../middleware/check')
+const checkToken = require('../middleware/checkToken')
 
 const noteCtrl = require('../controllers/note')
 
@@ -19,8 +19,6 @@ router.get('/:id', noteCtrl.getNote)
 
 // Création du commentaire
 router.put('/', checkToken, noteCtrl.createNote)
-
-// router.post('/:id/like', checkToken, likeCtrl.likeNote)
 
 // Modification du commentaire
 router.patch('/:id', checkToken, noteCtrl.updateNote)

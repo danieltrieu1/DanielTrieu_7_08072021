@@ -3,6 +3,30 @@ const jwt = require('jsonwebtoken')
 
 const User = require('../models/user')
 
+
+// Signup
+exports.signup = (req, res, next) => {
+
+    // .hach(): Hachage du mot de passe / "Salage" = 10
+    bcrypt.hash(req.body.password, 10)
+      .then(hash => {
+        const user = new User({
+          email: req.body.email,
+          password: hash
+        });
+        user.save()
+
+          // Statut 201 - Created: indique que la requête a réussie et que la ressource a été créée.
+          .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
+
+          // Statut 400 - Bad Request: indique que la syntaxe de la requête est invalide
+          .catch(error => res.status(400).json({ error }));
+      })
+
+      // Statut 500 - Internal Server Error: indique une erreur interne du serveur non identifiée
+      .catch(error => res.status(500).json({ error }));
+};
+
 // Login
 exports.login = async (req, res) => {
     const { email, password } = req.body
@@ -33,6 +57,7 @@ exports.login = async (req, res) => {
                                 name: user.name,
                                 firstname: user.firstname,
                                 email: user.email,
+                                // isAdmin: user.isAdmin,
                                 username: user.username
                                 },
                                 

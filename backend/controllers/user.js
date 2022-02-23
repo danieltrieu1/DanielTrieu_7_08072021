@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 const User = require('../models/user')
  
 // Ensemble des utilisateurs
-exports.getAllUsers = (req, res) => {
+exports.getAllUsers = (req, res, next) => {
     User.findAll()
         .then( users => res.json({ data: users }))
         .catch( error => res.status(500).json({ message: 'Database Error', error: error }))
@@ -13,7 +13,7 @@ exports.getAllUsers = (req, res) => {
 //-------------------------------------------------------------------------
 
 // Utilisateur unique
-exports.getUser = (req, res) => {
+exports.getUser = (req, res, next) => {
     let userId = parseInt(req.params.id)
 
     // Vérification du champs id
@@ -36,8 +36,8 @@ exports.getUser = (req, res) => {
 
 //-------------------------------------------------------------------------
 
-// Création de l'utilisateur
-exports.createUser = async (req, res) => {
+// Création de l'utilisateur / Signup
+exports.createUser = async (req, res, next) => {
     const {name, firstname, email, username, password} = req.body
 
     // Validation des données reçus
@@ -72,7 +72,7 @@ exports.createUser = async (req, res) => {
 
 
 // Modification l'utilisateur
-exports.updateUser = async (req, res) => {
+exports.updateUser = async (req, res, next) => {
     let userId = parseInt(req.params.id)
 
     // Vérification du champ id
@@ -98,7 +98,7 @@ exports.updateUser = async (req, res) => {
 //-------------------------------------------------------------------------
 
 // Suppression de l'utilisateur (Hard Delete)
-exports.deleteUser = (req, res) => {
+exports.deleteUser = (req, res, next) => {
     let userId = parseInt(req.params.id)
 
     // Vérification du champ id

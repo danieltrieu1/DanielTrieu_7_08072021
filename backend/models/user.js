@@ -5,56 +5,59 @@ const DB = require('../db.config')
 // Définition du modèle User
 const User = DB.define('User', {
     id: {
-        type: DataTypes.INTEGER(10),
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
     name: {
-        allowNull: false,
-        type: DataTypes.STRING(100),
+        allowNull: true,
+        type: DataTypes.STRING,
         defaultValue: ""
     },
     firstname: {
-        allowNull: false,
-        type: DataTypes.STRING(100),
+        allowNull: true,
+        type: DataTypes.STRING,
         defaultValue: ""
-
     },
     email: {
         allowNull: false,
+        unique: true,
         type: DataTypes.STRING,
         validate: {
             isEmail: true
         }
     },
     username: {
-        allowNull: false,
-        type: DataTypes.STRING(100),
+        allowNull: true,
+        type: DataTypes.STRING,
         unique: true
     },
     description: {
         allowNull: true,
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING,
         defaultValue: ""
     },
     password: {
         allowNull: false,
-        type: DataTypes.STRING(64),
+        type: DataTypes.STRING,
         is: /^[0-9a-f]{64}$/
     }
-    // ,
-    // isAdmin: {
-    // allowNull: false,
-    // type: DataTypes.TINYINT,
-    // defaultValue: false
-    // }
+    ,
+    isAdmin: {
+    allowNull: false,
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+    }
 })
 
 // Synchronisation du modèles
 User.sync()
     .then(() => { console.log('USER DB SYNC OK') })
-// User.sync({ force: true })
-// User.sync({ alter: true })
 
+// User.sync({ force: true })
+//     .then(() => { console.log('FORCE USER DB SYNC OK') })
+
+// User.sync({ alter: true })
+//     .then(() => { console.log('ALTER USER DB SYNC OK') })
 
 module.exports = User

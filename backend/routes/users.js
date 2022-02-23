@@ -14,7 +14,7 @@ router.get('/', userCtrl.getAllUsers)
 // Utilisateur unique
 router.get('/:id', userCtrl.getUser)
 
-// Création de l'utilisateur
+// Création de l'utilisateur / Signup
 router.put('/', userCtrl.createUser)
 
 // Modification l'utilisateur

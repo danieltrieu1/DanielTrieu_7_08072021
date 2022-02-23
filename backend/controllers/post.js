@@ -2,7 +2,7 @@ const Post = require('../models/post')
  
 // Ensemble des messages
 exports.getAllPosts = (req, res) => {
-    Post.findAll()
+    Post.findAll({ include: Note })
         .then( post => res.json({ data: post }))
         .catch( error => res.status(500).json({ message: 'Database Error', error: error }))
 }

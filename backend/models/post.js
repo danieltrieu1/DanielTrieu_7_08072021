@@ -5,17 +5,17 @@ const DB = require('../db.config')
 // Définition du modèle Message
 const Post = DB.define('Post', {
     id: {
-        type: DataTypes.INTEGER(10),
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
     user_id: {
         allowNull: false,
-        type: DataTypes.INTEGER(10)
+        type: DataTypes.INTEGER
     },
     title: {
-        allowNull: false,
-        type: DataTypes.STRING(100),
+        allowNull: true,
+        type: DataTypes.STRING,
         defaultValue: ""
     },
     content: {
@@ -28,17 +28,17 @@ const Post = DB.define('Post', {
         type: DataTypes.STRING,
         defaultValue: ""
     }
-    // ,
-    // like: {
-    //     allowNull: false,
-    //     type: DataTypes.INTEGER
-    // }
+    }, { classMethods: { associate: function(models) { models.Post.hasMany(models.Note) } } 
 })
 
 // Synchronisation du modèles
 Post.sync()
     .then(() => { console.log('POST DB SYNC OK') })
+
 // Post.sync({ force: true })
+//     .then(() => { console.log('FORCE POST DB SYNC OK') })
+
 // Post.sync({ alter: true })
+//     .then(() => { console.log('ALTER POST DB SYNC OK') })
 
 module.exports = Post
