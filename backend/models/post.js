@@ -28,9 +28,9 @@ let Post = DB.define('Post', {
         type: Sequelize.STRING,
         defaultValue: ""
     }
+    }, { 
+    classMethods: { associate: function(models) { models.Post.hasMany(models.Note) } } 
     }
-    , { classMethods: { associate: function(models) { models.Post.hasMany(models.Note) } } 
-}
 )
 
 // Synchronisation du modèles

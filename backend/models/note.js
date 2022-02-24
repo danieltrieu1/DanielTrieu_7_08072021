@@ -9,13 +9,10 @@ let Note = DB.define('Note', {
         primaryKey: true,
         autoIncrement: true
     },
-    // post_id: {
-    //     type: DataTypes.INTEGER,
-    //     references: {
-    //         models: 'Posts',
-    //         key: 'id'
-    //     }
-    // },
+    posts_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+    },
     title: {
         allowNull: true,
         type: Sequelize.STRING,
@@ -32,7 +29,7 @@ let Note = DB.define('Note', {
     }
     }
     , { classMethods: { associate: function(models) { models.Note.belongsTo(models.Post, {
-        onDelete: "CASCADE" }) } } 
+        onDelete: 'CASCADE' }) } } 
 }
 )
 

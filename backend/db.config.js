@@ -13,7 +13,8 @@ let sequelize = new Sequelize(
 
 // Synchronisation des modèles
 sequelize.sync( error => {
-    console.log('Database Sync Error');
+
+    console.log('Database Sync Error', error);
 })
 
 module.exports = sequelize
