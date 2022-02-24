@@ -1,6 +1,8 @@
 // Imports
 const express = require('express')
 
+const checkToken = require('../middleware/checkToken')
+
 const userCtrl = require('../controllers/user')
 
 // Récupération du router
@@ -9,19 +11,19 @@ let router = express.Router()
 // Routage des ressources
 
 // Ensemble des utilisateurs
-router.get('/', userCtrl.getAllUsers)
+router.get('/', checkToken, userCtrl.getAllUsers)
 
 // Utilisateur unique
-router.get('/:id', userCtrl.getUser)
+router.get('/:id', checkToken, userCtrl.getUser)
 
-// Création de l'utilisateur / Signup
-router.put('/', userCtrl.createUser)
+// Création de l'utilisateur 
+router.put('/', checkToken, userCtrl.createUser)
 
 // Modification l'utilisateur
-router.patch('/:id', userCtrl.updateUser)
+router.patch('/:id', checkToken, userCtrl.updateUser)
 
 // Suppression de l'utilisateur (Hard Delete)
-router.delete('/:id', userCtrl.deleteUser)
+router.delete('/:id', checkToken, userCtrl.deleteUser)
 
 module.exports = router
 

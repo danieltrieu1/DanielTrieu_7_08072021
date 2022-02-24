@@ -1,38 +1,42 @@
 // Imports
-const { DataTypes } = require('sequelize')
+const { Sequelize } = require('sequelize')
 const DB = require('../db.config')
 
 // Définition du modèle Commentaire
-const Note = DB.define('Note', {
+let Note = DB.define('Note', {
     id: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    user_id: {
-        allowNull: false,
-        type: DataTypes.INTEGER
-    },
+    // post_id: {
+    //     type: DataTypes.INTEGER,
+    //     references: {
+    //         models: 'Posts',
+    //         key: 'id'
+    //     }
+    // },
     title: {
         allowNull: true,
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         defaultValue: ""
     },
     content: {
         allowNull: false,
-        type: DataTypes.TEXT,
+        type: Sequelize.TEXT,
         defaultValue: ""
     },
     attachment: {
         allowNull: true,
-        type: DataTypes.STRING,
-        defaultValue: ""
+        type: Sequelize.STRING
     }
-    }, { classMethods: { associate: function(models) { models.Note.belongsTo(models.Post, {
-        onDelete: "CASCADE", }) } } 
-})
+    }
+    , { classMethods: { associate: function(models) { models.Note.belongsTo(models.Post, {
+        onDelete: "CASCADE" }) } } 
+}
+)
 
-// Synchronisation du modèles
+// // Synchronisation du modèles
 Note.sync()
     .then(() => { console.log('NOTE DB SYNC OK') })
 

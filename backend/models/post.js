@@ -1,35 +1,37 @@
 // Imports
-const { DataTypes } = require('sequelize')
+const { Sequelize } = require('sequelize')
 const DB = require('../db.config')
 
 // Définition du modèle Message
-const Post = DB.define('Post', {
+let Post = DB.define('Post', {
     id: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    user_id: {
-        allowNull: false,
-        type: DataTypes.INTEGER
-    },
+    // user_id: {
+    //     allowNull: false,
+    //     type: DataTypes.INTEGER
+    // },
     title: {
         allowNull: true,
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         defaultValue: ""
     },
     content: {
         allowNull: false,
-        type: DataTypes.TEXT,
+        type: Sequelize.TEXT,
         defaultValue: ""
     },
     attachment: {
         allowNull: true,
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         defaultValue: ""
     }
-    }, { classMethods: { associate: function(models) { models.Post.hasMany(models.Note) } } 
-})
+    }
+    , { classMethods: { associate: function(models) { models.Post.hasMany(models.Note) } } 
+}
+)
 
 // Synchronisation du modèles
 Post.sync()

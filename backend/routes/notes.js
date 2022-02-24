@@ -11,11 +11,12 @@ const noteCtrl = require('../controllers/note')
 let router = express.Router()
 
 // Routage des ressources
+
 // Ensemble des commentaires
-router.get('/', noteCtrl.getAllNotes)
+router.get('/', checkToken, noteCtrl.getAllNotes)
 
 // Commentaire unique
-router.get('/:id', noteCtrl.getNote)
+router.get('/:id', checkToken, noteCtrl.getNote)
 
 // Création du commentaire
 router.put('/', checkToken, noteCtrl.createNote)

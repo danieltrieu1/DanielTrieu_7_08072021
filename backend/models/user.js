@@ -1,51 +1,52 @@
 // Imports
-const { DataTypes } = require('sequelize')
+const { Sequelize } = require('sequelize')
 const DB = require('../db.config')
 
 // Définition du modèle User
 const User = DB.define('User', {
     id: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
     name: {
         allowNull: true,
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         defaultValue: ""
     },
     firstname: {
         allowNull: true,
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         defaultValue: ""
     },
     email: {
         allowNull: false,
         unique: true,
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         validate: {
             isEmail: true
         }
     },
     username: {
         allowNull: true,
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
+        defaultValue: "",
         unique: true
     },
     description: {
         allowNull: true,
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         defaultValue: ""
     },
     password: {
         allowNull: false,
-        type: DataTypes.STRING,
-        is: /^[0-9a-f]{64}$/
+        type: Sequelize.STRING
+        // is: /^[0-9a-f]{64}$/
     }
     ,
     isAdmin: {
     allowNull: false,
-    type: DataTypes.BOOLEAN,
+    type: Sequelize.BOOLEAN,
     defaultValue: false
     }
 })

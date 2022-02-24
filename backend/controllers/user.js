@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 const User = require('../models/user')
  
 // Ensemble des utilisateurs
-exports.getAllUsers = (req, res, next) => {
+exports.getAllUsers = (req, res) => {
     User.findAll()
         .then( users => res.json({ data: users }))
         .catch( error => res.status(500).json({ message: 'Database Error', error: error }))
@@ -13,7 +13,7 @@ exports.getAllUsers = (req, res, next) => {
 //-------------------------------------------------------------------------
 
 // Utilisateur unique
-exports.getUser = (req, res, next) => {
+exports.getUser = (req, res) => {
     let userId = parseInt(req.params.id)
 
     // Vérification du champs id
@@ -37,7 +37,7 @@ exports.getUser = (req, res, next) => {
 //-------------------------------------------------------------------------
 
 // Création de l'utilisateur / Signup
-exports.createUser = async (req, res, next) => {
+exports.createUser = async (req, res) => {
     const {name, firstname, email, username, password} = req.body
 
     // Validation des données reçus
@@ -60,7 +60,7 @@ exports.createUser = async (req, res, next) => {
         let User = await User.create(req.body)
         return res.json({ message: 'User Created', data: user })
 
-    }catch(err){
+    }catch(error){
         if(error.name == 'SequelizeDatabaseError'){
             res.status(500).json({ message: 'Database Error', error: error })
         }
@@ -72,7 +72,7 @@ exports.createUser = async (req, res, next) => {
 
 
 // Modification l'utilisateur
-exports.updateUser = async (req, res, next) => {
+exports.updateUser = async (req, res) => {
     let userId = parseInt(req.params.id)
 
     // Vérification du champ id
@@ -98,7 +98,7 @@ exports.updateUser = async (req, res, next) => {
 //-------------------------------------------------------------------------
 
 // Suppression de l'utilisateur (Hard Delete)
-exports.deleteUser = (req, res, next) => {
+exports.deleteUser = (req, res) => {
     let userId = parseInt(req.params.id)
 
     // Vérification du champ id

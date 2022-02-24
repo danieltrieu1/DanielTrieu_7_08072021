@@ -9,10 +9,10 @@ const postCtrl = require('../controllers/post')
 let router = express.Router()
 
 // Routage des ressources
-router.get('/', postCtrl.getAllPosts)
+router.get('/', checkToken, postCtrl.getAllPosts)
 
 // Message unique
-router.get('/:id', postCtrl.getPost)
+router.get('/:id', checkToken, postCtrl.getPost)
 
 // Création du message
 router.put('/', checkToken, postCtrl.createPost)
