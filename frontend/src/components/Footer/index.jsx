@@ -7,6 +7,7 @@ const FooterStyled = styled.h2`
     font-size: 18px;
     background-color: green;
     border: solid 3px black;
+    padding: 3rem;
     margin: 0;
 `
  

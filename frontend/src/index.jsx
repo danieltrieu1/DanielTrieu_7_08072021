@@ -9,15 +9,19 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Feed from './pages/Feed';
+import Dashboard from './components/Dashboard';
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Header />
+      <Dashboard />
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/feed" element={<Feed />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </Router>
