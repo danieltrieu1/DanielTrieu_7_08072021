@@ -3,20 +3,20 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const DashboardStyled = styled.div`
-color: white;
-background-color: red;
-padding: 32px;
-display: flex;
-flex-direction: column;
-justify-content: flex-start;
-width: 200px;
+    color: white;
+    background-color: red;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 200px;
 `
 const DashButton = styled.button`
     font-weight: bold;
     color: white;
     border: none;
     padding: 1rem;
-    background: orange;
+    background: red;
     border-radius: 1rem;
 `
 

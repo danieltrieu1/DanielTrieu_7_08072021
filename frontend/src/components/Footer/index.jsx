@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const FooterStyled = styled.h2`
+const FooterStyled = styled.div`
     padding: 15px;
     color: red;
     text-decoration: none;
@@ -13,7 +13,9 @@ const FooterStyled = styled.h2`
  
 function Footer() {
     return (
-        <FooterStyled>Footer</FooterStyled>
+        <FooterStyled>
+            <h2>Footer</h2>
+        </FooterStyled>
     )
 }
 

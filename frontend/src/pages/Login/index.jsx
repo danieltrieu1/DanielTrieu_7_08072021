@@ -1,14 +1,14 @@
-import React from 'react';
+// import { useEffect } from 'react'
 
 function Login() {
-    return (
-      <div className="Login">
-          <p>
-              Login
-          </p>
-      </div>
-    );
-  }
-  
-  export default Login;
-  
+
+    // useEffect(() => {
+    //     fetch(`http://localhost:8080/auth/login`)
+    //          .then((response) => response.json()
+    //          .then(({ usersData }) => console.log(usersData))
+    //          .catch((error) => console.log(error))
+    //      )
+    //  }, [])
+}
+
+export default Login

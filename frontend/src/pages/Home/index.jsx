@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import colors from '../../utils/styles/colors'
 
 const HomeWrapper = styled.div`
   display: flex;
@@ -8,7 +7,8 @@ const HomeWrapper = styled.div`
 
 const HomerContainer = styled.div`
   margin: 30px;
-  background-color: ${colors.background};
+  border-radius: 2rem;
+  background-color: pink;
   padding: 60px 90px;
   display: flex;
   flex-direction: row;
