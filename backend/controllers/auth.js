@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-const User = require('../models/user')
-
+const db = require('../db.config')
+const User = db.user
 
 // Signup
 exports.signup = (req, res, next) => {
@@ -29,6 +29,7 @@ exports.signup = (req, res, next) => {
 
 // Login
 exports.login = async (req, res) => {
+    console.log(req.body)
     const { email, password } = req.body
 
     if( !email || !password ) {

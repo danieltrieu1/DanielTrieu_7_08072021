@@ -5,7 +5,7 @@ const FooterStyled = styled.div`
     color: red;
     text-decoration: none;
     font-size: 18px;
-    background-color: green;
+    background-color: grey;
     border: solid 3px black;
     padding: 3rem;
     margin: 0;

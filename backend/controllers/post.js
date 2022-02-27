@@ -1,5 +1,7 @@
-const Post = require('../models/post')
- 
+const db = require('../db.config')
+const Post = db.post
+const Note = db.note
+
 // Ensemble des messages
 exports.getAllPosts = (req, res) => {
     Post.findAll({ include: Note })
@@ -52,6 +54,7 @@ exports.getPost = async (req, res) => {
 // Création du message
 exports.createPost = async (req, res) => {
     const { user_id, title, content } = req.body
+    console.log(req.body);
 
     // Validation des données reçues
     if (!user_id || !title || !content) {

@@ -1,10 +1,11 @@
 const app = require('./app')
 
 // Import Connexion à la bdd
-let DB = require('./db.config')
+let db = require('./db.config')
 
 // Ecoute du serveur avec test DB
-DB.authenticate()
+db.sequelize
+    .sync()
     .then(() => console.log('Database Connection OK'))
     .then(() => { 
         app.listen(process.env.SERVER_PORT, () => {

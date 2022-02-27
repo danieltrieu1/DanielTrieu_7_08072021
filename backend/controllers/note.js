@@ -1,4 +1,5 @@
-const Note = require('../models/note')
+const db = require('../db.config')
+const Note = db.note
 
 // Ensemble des commentaires
 exports.getAllNotes = (req, res) => {

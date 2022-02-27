@@ -1,7 +1,8 @@
 // Imports
 const bcrypt = require('bcrypt')
 
-const User = require('../models/user')
+const db = require('../db.config')
+const User = db.user
  
 // Ensemble des utilisateurs
 exports.getAllUsers = (req, res) => {

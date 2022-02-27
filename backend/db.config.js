@@ -1,20 +1,24 @@
 // Imports
-const { Sequelize } = require('sequelize')
+const Sequelize = require('sequelize')
 
 // Connexion à la bdd
 let sequelize = new Sequelize(
     process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
         host: process.env.DB_HOST,
         port: process.env.DB_PORT,
-        dialect: "mysql",
-        logging: false
+        dialect: "mysql"
     }
 )
 
-// Synchronisation des modèles
-sequelize.sync( error => {
+const db = {}
+db.Sequelize = Sequelize
+db.sequelize = sequelize
 
-    console.log('Database Sync Error', error);
-})
+db.note = require('./models/note')(sequelize, Sequelize)
+db.post = require('./models/post')(sequelize, Sequelize)
+db.user = require('./models/user')(sequelize, Sequelize)
 
-module.exports = sequelize
+db.post.hasMany(db.note, {onDelete: 'CASCADE'})
+db.note.belongsTo(db.post)
+
+module.exports = db

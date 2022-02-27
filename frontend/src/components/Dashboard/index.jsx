@@ -34,7 +34,6 @@ function Dashboard() {
     ): (
         <DashButton onClick={() => setIsOpen(true)}>Dashboard</DashButton>
     )
-
 }
 
 export default Dashboard

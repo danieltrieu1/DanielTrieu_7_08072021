@@ -12,6 +12,7 @@ const HomerContainer = styled.div`
   padding: 60px 90px;
   display: flex;
   flex-direction: row;
+  box-shadow: 0px 0px 20px 0px grey;
   max-width: 1200px;
 `
 
@@ -35,6 +36,7 @@ function Home() {
         <LeftCol>
           <StyledTitle>
           Arrête de pleurer sale bébé cadum
+          "j'arrive pas gneugneugneu"
           </StyledTitle>
         </LeftCol>
       </HomerContainer>

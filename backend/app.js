@@ -25,7 +25,6 @@ app.use(express.urlencoded({ extended: true }))
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
-
 // Paramétrage des en-têtes
 // app.use(): permet d'attribuer un middleware à une route spécifique de l'application
 app.use((req, res, next) => {

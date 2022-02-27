@@ -20,7 +20,6 @@ import Feed from './pages/Feed';
 //   baseURL: `localhost:8080/users`
 // })
 
-
 ReactDOM.render(
   <React.StrictMode>
     <Router>
