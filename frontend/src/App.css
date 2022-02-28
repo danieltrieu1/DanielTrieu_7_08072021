@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+}
+
+.App {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center;
+    justify-content: center; */
+    /* background: url('./assets/MERGUEZ.jpeg'); */
+    background-color: green;
+
+    /* background: rgb(0,16,110);
+    background: linear-gradient(180deg, rgba(0,16,110,1) 36%, rgba(1,13,38,1) 100%); */
+    position: relative;
+}
+
+.Navbar {
+    height: 1rem;
+    padding: 1rem;
+    background-color: white;
+    box-shadow: 0px 0px 20px -10px black;
+}
+
+.NavbarLink {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 1rem;
+    align-items: center;
+}
+
+.Container {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

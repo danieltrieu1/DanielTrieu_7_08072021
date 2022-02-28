@@ -11,6 +11,7 @@ exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
         const user = new User({
+          username: req.body.username,
           email: req.body.email,
           password: hash
         });
@@ -30,15 +31,15 @@ exports.signup = (req, res, next) => {
 // Login
 exports.login = async (req, res) => {
     console.log(req.body)
-    const { email, password } = req.body
+    const { username, password } = req.body
 
-    if( !email || !password ) {
-        return res.status(400).json({ Message: 'Wrong Email or Password' })
+    if( !username || !password ) {
+        return res.status(400).json({ Message: 'Wrong Username or Password' })
     }
 
     try {
         // Vérification de l'existence de l'utilisateur
-        let user = await User.findOne({ where: { email: email }, raw: true })
+        let user = await User.findOne({ where: { username: username }, raw: true })
         if (user === null) {
             return res.status(401).json({ message: 'This account does not exit !' })
         }
@@ -69,7 +70,7 @@ exports.login = async (req, res) => {
                                 { expiresIn: process.env.JWT_DURING }
             
                                 ) 
-                                return res.json({ access_token: token })
+                                return res.json({ accessToken: token })
 
 
     } catch(error) {

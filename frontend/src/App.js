@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import './App.css'
 import Signup from './Components/SignupForm'
 import Login from './Components/LoginForm'
@@ -11,7 +11,7 @@ class App extends Component {
       <div className="App">
         <nav className='Navbar'>
           <div className='NavbarLink'>
-            <li className='navItem'>
+            <li >
               <Link to={"/login"} className='navLink'>login</Link>
             </li>
             <li className='navItem'>
@@ -23,11 +23,11 @@ class App extends Component {
           </div>
         </nav>
         <div className='Container'>
-          <Routes>
+          <Switch>
             <Route path='/signup' component={Signup} />
-            <Route exact path='/login' component={Login} />
+            <Route path={['/', "/login"]} component={Login} />
             <Route path='/profile' component={Profile} />
-          </Routes>
+          </Switch>
         </div>
       </div>
     );
