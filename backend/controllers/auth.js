@@ -50,6 +50,15 @@ exports.login = async (req, res) => {
             return res.status(401).json({ message: 'Wrong Password' }) 
         }
 
+        const userData = { 
+            id: user.id,
+            name: user.name,
+            firstname: user.firstname,
+            email: user.email,
+            // isAdmin: user.isAdmin,
+            username: user.username
+         }
+
         // Génération du token
                             // Payload
                             const token = jwt.sign(
@@ -70,7 +79,7 @@ exports.login = async (req, res) => {
                                 { expiresIn: process.env.JWT_DURING }
             
                                 ) 
-                                return res.json({ accessToken: token })
+                                return res.json({ accessToken: token, userData })
 
 
     } catch(error) {
