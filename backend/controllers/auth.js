@@ -30,7 +30,7 @@ exports.signup = (req, res, next) => {
 
 // Login
 exports.login = async (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     const { username, password } = req.body
 
     if( !username || !password ) {
@@ -84,7 +84,7 @@ exports.login = async (req, res) => {
 
     } catch(error) {
         if(error.name == 'SequelizeDatabaseError'){
-            res.status(500).json({ message: 'Database Error', error: error })
+            return res.status(500).json({ message: 'Database Error', error: error })
         }
         res.status(500).json({ message: 'Login process failed', error: error })
     }

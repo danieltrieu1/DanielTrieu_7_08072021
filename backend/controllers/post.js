@@ -68,12 +68,19 @@ exports.createPost = async (req, res) => {
         let post = await Post.findOne({ where: { title: title }, raw: true })
         
         //Test si résultat null
-        if (post !== null) {
-            return res.status(409).json({ message: `The message ${title} already exists !` })
-        }
+        // if (post !== null) {
+        //     return res.status(409).json({ message: `The message ${title} already exists !` })
+        // }
 
         // Création du message
-        post = await Post.create(req.body)
+        let newPost = {
+            title: req.body.title,
+            content: req.body.content,
+            user_id: req.body.user_id,
+            attachment: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        }
+
+        post = await Post.create(newPost)
         return res.json({ message: 'Post Created', data: post })
     } catch (error) {
         return res.status(500).json({ message: 'Database Error', error: error })

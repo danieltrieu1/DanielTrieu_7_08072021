@@ -58,6 +58,7 @@ exports.createUser = async (req, res) => {
         req.body.password = hash
 
         // Céation de l'utilisateur
+
         let User = await User.create(req.body)
         return res.json({ message: 'User Created', data: user })
 
@@ -88,8 +89,22 @@ exports.updateUser = async (req, res) => {
             return res.status(404).json({ message: 'This user does not exist !'})
         }
 
+        if (req.file) {
+            let newUserData = {
+                // name: req.body.name,
+                // firstname: req.body.firstname,
+                ...JSON.parse(req.body),
+                attachment: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+                // password: req.body.password
+            }
+        } else {
+            let newUserData = {
+                ...JSON.parse(req.body)
+            }
+        }
         // Mise à jour de l'utilisateur
-        await User.update(req.body, { where: { id: userId } })
+        
+        await User.update(newUserData, { where: { id: userId } })
         return res.json({ message: 'User Updated' })
     }catch(error){
         return res.status(500).json({ message: 'Database Error', error: error })

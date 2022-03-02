@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import AuthService from "../services/auth.service";
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
 
 const StyledLink = styled(Link)`
   display: flex;
@@ -21,11 +23,20 @@ const StyledLink = styled(Link)`
   border-radius: 4px;
 `
 
-export default class Profile extends Component {
+class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = { currentUser: AuthService.getCurrentUser() };
+    this.handleLogout = this.handleLogout.bind(this);
+    this.state = { 
+      currentUser: AuthService.getCurrentUser(),
+    }
   }
+
+  handleLogout() {
+    this.setState({ currentUser: false })
+    AuthService.logout()
+  }
+
   render() {
     const { currentUser } = this.state;
     return (
@@ -65,13 +76,19 @@ export default class Profile extends Component {
                   Voir le feed
                 </StyledLink>
             </li>
-            
-            <StyledLink to={"/"}>
-              <span>Se déconnecter</span>
-            </StyledLink>
+            <div className="logoutBtn">
+            <Link to={'/login'} className="NavLink" onClick={this.handleLogout}>
+                Se déconnecter
+                <FontAwesomeIcon icon={faClose} />
+              </Link>
+            </div>
+
           </div>
         </div>
       </div>
     );
   }
 }
+
+
+export default Profile

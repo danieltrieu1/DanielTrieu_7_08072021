@@ -3,6 +3,8 @@ const express = require('express')
 
 const checkToken = require('../middleware/checkToken')
 
+const multer = require('../middleware/multer-config')
+
 const postCtrl = require('../controllers/post')
 
 // Récupération du router
@@ -15,7 +17,7 @@ router.get('/', checkToken, postCtrl.getAllPosts)
 router.get('/:id', checkToken, postCtrl.getPost)
 
 // Création du message
-router.put('/', checkToken, postCtrl.createPost)
+router.put('/', multer, postCtrl.createPost)
 
 // Modification du message
 router.patch('/:id', checkToken, postCtrl.updatePost)

@@ -22,27 +22,21 @@ class NavBar extends Component {
     };
   }
 
-  handleLogout(e) {
-    e.preventDefault();
-    AuthService.logout().then(
-      () => {
-        this.props.history.push("/login");
-        window.location.reload();
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  handleLogout() {
+    this.setState({ currentUser: false })
+    AuthService.logout()
   }
 
   render() {
     return (
       <nav className="Navbar">
+
         <Link to={"/"} className="NavLogo">
           <img src={Logo} alt="Logo Groupomania" />
         </Link>
 
         <div className="NavbarLink">
+          
           <li className="NavItem">
             <Link to={"/login"} className="NavLink">
               Login
@@ -76,7 +70,7 @@ class NavBar extends Component {
           {this.state.currentUser ? (
             <li className="NavItem">
               <Link to={"/post"} className="NavLink">
-                Publier un Message
+                Faire une Publication
                 <FontAwesomeIcon icon={faPaperPlane} />
               </Link>
             </li>
@@ -93,10 +87,10 @@ class NavBar extends Component {
 
           {this.state.currentUser ? (
             <li className="NavItem">
-              <button className="NavLink" onClick={this.handleLogout}>
+              <Link to={'/login'} className="NavLink" onClick={this.handleLogout}>
                 Se déconnecter
                 <FontAwesomeIcon icon={faClose} />
-              </button>
+              </Link>
             </li>
           ) : null}
         </div>

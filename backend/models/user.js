@@ -41,6 +41,12 @@ module.exports = (sequelize, Sequelize) => {
             // is: /^[0-9a-f]{64}$/
         }
         ,
+        attachment: {
+            allowNull: true,
+            type: Sequelize.STRING,
+            defaultValue: ""
+        }
+        ,
         isAdmin: {
         allowNull: false,
         type: Sequelize.BOOLEAN,

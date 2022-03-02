@@ -7,13 +7,13 @@
 
 .App {
     z-index: 1;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center; 
     background-size: cover;
     background: url('./assets/aq.jpeg') no-repeat;
-    /* position: relative; */
+    position: relative;
 }
 
 .App:after {
@@ -37,16 +37,16 @@
 .col-md-12 {
     display: flex;
     justify-content: center;
-    /* background-color: white; */
-    width: 100%;
-    margin-top: 4rem;
+    width: auto;
+    margin-top: 6rem;
 }
+
 
 .Navbar {
     position: absolute;
     width: 100%;
     margin: auto;
-    z-index: 2;
+    z-index: 2; 
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -63,7 +63,7 @@
 .NavbarLink {
     list-style-type: none;
     display: flex;
-    gap: 1rem;
+    gap: 3rem;
     align-items: center; 
 }
 
@@ -76,7 +76,6 @@
     margin-top: -72px;
     max-height: 10rem;
     max-width: 10rem;
-    object-fit: cover;
 }
 
 /* ---------------------------------------- */
@@ -85,7 +84,7 @@
     z-index: 1;
     display: flex;
     /* margin: auto; */
-    margin: 2rem;
+    /* margin: 2rem; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -100,7 +99,7 @@
     flex-direction: column;
     justify-content: center;
     list-style-type: none;
-    z-index: 0;
+    /* z-index: 0; */
     background-color: rgb(237, 232, 232);
     border-radius: 1rem;
     width: 20rem;
@@ -228,4 +227,12 @@
 }
 
 /* ----------------------------------- */
+
+.logoutBtn {
+
+    display: flex;
+    justify-content: center;
+    margin: 2rem;
+    background-color: red;
+}
 
