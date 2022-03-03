@@ -87,8 +87,8 @@ let noteCounter = 1;
 class Forum extends Component {
     constructor(props) {
 
-        this.deletePost = this.deletePost.bind(this);
-        this.deleteNote = this.deleteNote.bind(this);
+        // this.deletePost = this.deletePost.bind(this);
+        // this.deleteNote = this.deleteNote.bind(this);
 
         // this.setAllPosts = this.setAllPosts.bind(this);
 
