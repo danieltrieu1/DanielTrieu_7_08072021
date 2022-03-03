@@ -3,8 +3,6 @@ import axios from "axios";
 import AuthHeader from "../services/auth-header";
 import AuthService from "../services/auth.service"
 import styled from "styled-components";
-import Note from "./Note"
-import Post from "./Post"
 
 const PageWrapper = styled.div`
     z-index: 0;
@@ -85,8 +83,8 @@ const StyledButton = styled.button`
 class Forum extends Component {
   constructor(props) {
     super(props);
-    this.getAllPosts = this.getAllPosts.bind(this);
-    this.getAllNotes = this.getAllNotes.bind(this);
+    // this.getAllPosts = this.getAllPosts.bind(this);
+    // this.getAllNotes = this.getAllNotes.bind(this);
     this.state = {
       currentUser: AuthService.getCurrentUser(),
 
@@ -99,12 +97,13 @@ class Forum extends Component {
     };
   }
 
+
+
   render() {
     return (
       <PageWrapper>
         <Container>
-            <Note />
-            <Post />
+
         </Container>
     </PageWrapper>
     );
