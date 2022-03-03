@@ -86,8 +86,8 @@ class Forum extends Component {
     this.handleNoteValue = this.handleNoteValue.bind(this);
     this.uploadHandler = this.uploadHandler.bind(this);
     
-    this.setPost = this.setPost.bind(this);
-    this.setNote = this.setNote.bind(this);
+    // this.setPost = this.setPost.bind(this);
+    // this.setNote = this.setNote.bind(this);
 
     this.deletePost = this.deletePost.bind(this);
     this.deleteNote = this.deleteNote.bind(this);
