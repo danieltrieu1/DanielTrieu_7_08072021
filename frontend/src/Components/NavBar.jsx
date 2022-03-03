@@ -103,13 +103,16 @@ class NavBar extends Component {
           </StyledLink>
 
           <NavLinks>
+
+          {!this.state.currentUser ? (
             <StyledLink to={"/login"} className="NavLink">
               Login
-            </StyledLink>
+            </StyledLink>) : null }
 
+          {!this.state.currentUser ? (
             <StyledLink to={"/signup"} className="NavLink">
               Sign up
-            </StyledLink>
+            </StyledLink>) : null }
 
             {this.state.currentUser ? (
               <StyledLink to={"/profile"} className="NavLink">
@@ -126,7 +129,7 @@ class NavBar extends Component {
             ) : null}
 
             {this.state.currentUser ? (
-              <StyledLink to={"/post"} className="NavLink">
+              <StyledLink to={"/formpost"} className="NavLink">
                 Faire une Publication
                 <FontAwesomeIcon icon={faPaperPlane} />
               </StyledLink>

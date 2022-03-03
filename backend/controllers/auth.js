@@ -13,7 +13,8 @@ exports.signup = (req, res, next) => {
         const user = new User({
           username: req.body.username,
           email: req.body.email,
-          password: hash
+          password: hash,
+          isAdmin: req.body.isAdmin
         });
         user.save()
 
@@ -55,9 +56,9 @@ exports.login = async (req, res) => {
             name: user.name,
             firstname: user.firstname,
             email: user.email,
-            // isAdmin: user.isAdmin,
             username: user.username,
-            attachment: user.attachment
+            attachment: user.attachment,
+            isAdmin: user.isAdmin,
          }
 
         // Génération du token

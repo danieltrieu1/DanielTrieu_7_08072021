@@ -127,8 +127,8 @@ class Profile extends Component {
 
             <FormGroup>
               <StyledLink to={"/dashboard"}>Modifier mon profil</StyledLink>
-              <StyledLink to={"/post"}>Publier un message</StyledLink>
-              <StyledLink to={"/feed"}>Accèder aux publications</StyledLink>
+              <StyledLink to={"/formpost"}>Publier un message</StyledLink>
+              <StyledLink to={"/forum"}>Accèder aux publications</StyledLink>
             </FormGroup>
 
             <Link to={"/login"} className="NavLink" onClick={this.handleLogout}>

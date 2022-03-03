@@ -120,6 +120,7 @@ exports.updateUser = async (req, res) => {
           email: newuser.email,
           username: newuser.username,
           attachment: newuser.attachment,
+          isAdmin: newuser.isAdmin
         };
         const token = jwt.sign(
           {
