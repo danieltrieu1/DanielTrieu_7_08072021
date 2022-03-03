@@ -116,11 +116,14 @@ export default class Dashboard extends Component {
     this.setState({ selectedFile: event.target.files[0] });
   };
 
-  deleteUser() {
-    axios.delete(`http://127.0.0.1:8080/users/`, { headers: AuthHeader() } )
+  deleteUser(e) {
+    e.preventDefault();
+    axios.delete(`http://127.0.0.1:8080/users/${this.state.currentUser.data.userData.id}`, { headers: AuthHeader() } )
       .then(() => {
-        this.setState({ currentUser: {} })
-        AuthService.logout()
+        AuthService.logout();
+        this.props.history.push("/signup");
+        window.location.reload();
+        this.setState({ currentUser: false });
       })
   }
 
@@ -164,11 +167,10 @@ export default class Dashboard extends Component {
       <PageWrapper>
         <Container>
           <ProfilePicture>
-            {/* <ProfileImage
-              // src={this.state.currentUser.data.userData.attachment}
-              //alt=""
-            /> */}
-            <p>{this.state.currentUser}</p>
+            <ProfileImage
+              src={this.state.currentUser.data.userData.attachment}
+              alt=""
+            />
           </ProfilePicture>
           <FormGroup>
             <FormInput type="file" onChange={this.fileChangedHandler} />
@@ -222,7 +224,6 @@ export default class Dashboard extends Component {
                 <span>Enregistrer les modifications</span>
               </StyledButton>
             </div>
-
             <div>
               <StyledButton onClick={this.deleteUser}>Supprimer votre compte</StyledButton>
             </div>

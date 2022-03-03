@@ -16,8 +16,10 @@ class AuthService {
         return response.data;
       });
   }
+
   logout() {
     localStorage.removeItem("user");
+
   }
   register(username, email, password) {
     return axios.post(API_URL + "signup", {
@@ -26,16 +28,10 @@ class AuthService {
       password
     });
   }
+
   getCurrentUser() {
     return JSON.parse(localStorage.getItem('user'));;
   }
-
-  // userDelete(id, e) {
-  //   e.preventDefault()
-  //   return axios.delete(API_URL + `user/${id}`,)
-  //     .then(response => console.log('Supprimé', response)
-  //     .catch(error => console.log( error )) )
-  // }
 }
 
 export default new AuthService();

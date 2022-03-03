@@ -63,12 +63,23 @@ exports.createNote = async (req, res) => {
     try{
         // Vérification si le commentaire existe
         let note = await Note.findOne({ where: { title: title }, raw: true })
+
+        let newNote = {
+            title: req.body.title,
+            content: req.body.content,
+            user_id: req.body.user_id,
+            postId: req.body.postId,
+            attachment: `${req.protocol}://${req.get("host")}/images/${
+              req.file.filename
+            }`,
+          };
+      
         if (note !== null) {
             return res.status(409).json({ message: `The note ${title} already exists !` })
         }
 
         // Création du commentaire
-        note = await Note.create(req.body)
+        note = await Note.create(newNote)
         return res.json({ message: 'Note Created', data: note })
     } catch (error) {
         return res.status(500).json({ message: 'Database Error', error: error })
