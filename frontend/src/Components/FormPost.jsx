@@ -80,20 +80,6 @@ const StyledButton = styled.button`
     width: 100%;
 `
 
-const ProfilePicture = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-`
-
-const ProfileImage = styled.img`
-    // border: solid 3px red;
-
-    border-radius: 50%;
-    width: 10rem;
-    height: 10rem;
-`
-
 class FormPost extends Component {
   constructor(props) {
     super(props);
@@ -144,18 +130,19 @@ class FormPost extends Component {
       formData.append("content", this.state.content);
     }
 
+    formData.append("user_id", this.state.currentUser.data.userData.id)
+
     axios
-      .patch(
-        "http://127.0.0.1:8080/posts/" +
-        this.state.currentUser.data.userData.id,
+      .put(
+        "http://127.0.0.1:8080/posts/",
         formData,
         { headers: AuthHeader() }
       )
       .then((response) => {
-        if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response));
-          window.location.reload();
-        }})
+        this.props.history.push("/forum");
+        window.location.reload();
+      })
+
       .catch((error) => console.log(error));
     }
 
@@ -195,7 +182,7 @@ class FormPost extends Component {
                 <FormGroup>
                 <StyledButton className="button" disabled={this.state.loading}>
                     {this.state.loading && <span className=""></span>}
-                    <span>Envoyer</span>
+                    Envoyer
                 </StyledButton>
                 </FormGroup>
 

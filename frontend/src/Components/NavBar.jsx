@@ -45,6 +45,7 @@ const NavStyledElements = styled.div`
 const NavLinks = styled.div`
   display: flex;
   gap: 3rem;
+  margin-right: 1rem; ////////////////////////////
 `;
 
 const NavLogo = styled.img`

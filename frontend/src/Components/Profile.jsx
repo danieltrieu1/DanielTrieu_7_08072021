@@ -50,17 +50,6 @@ const FormGroup = styled.div`
   gap: 3px;
 `;
 
-const StyledButton = styled.button`
-  cursor: pointer;
-  border: none;
-  border-radius: 4px;
-  padding: 10px;
-  font-size: 16px;
-  background-color: #ff5736;
-  color: white;
-  width: 100%;
-`;
-
 const ProfilePicture = styled.div`
   display: flex;
   flex-direction: column;

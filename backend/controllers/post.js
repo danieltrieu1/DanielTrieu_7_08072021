@@ -123,39 +123,24 @@ exports.updatePost = async (req, res) => {
       return res.status(404).json({ message: "This message does not exist !" });
     }
 
-    // const filename = sauce.imageUrl.split("/images/")[1];
+    const filename = sauce.imageUrl.split("/images/")[1];
 
-    // fs.unlink(`images/${filename}`, () => {
-    //   const postObject = req.file ?
-    //     {
-    //       ...JSON.parse(req.body.post),
-    //       imageUrl: `${req.protocol}://${req.get("host")}/images/${ req.file.filename }`,
-    //     } : { ...req.body };
+    fs.unlink(`images/${filename}`, () => {
+      const postObject = req.file ?
+        {
+          ...JSON.parse(req.body.post),
+          imageUrl: `${req.protocol}://${req.get("host")}/images/${ req.file.filename }`,
+        } : { ...req.body };
 
-    //   Post.updateOne({ _id: req.params.id },{ ...postObject, _id: req.params.id })
-    //     .then(() => res.status(200).json({ message: "Post modifié !" }))
-    //     .catch((error) => res.status(400).json({ error }));
-    // });
-
-    let newPostData = {};
-    if (req.file) {
-      newPostData = {
-        ...req.body,
-        attachment: `${req.protocol}://${req.get("host")}/images/${
-          req.file.filename
-        }`,
-      };
-      // console.log("test")
-    } else {
-      newPostData = {
-        ...req.body,
-      };
-    }
+      Post.updateOne({ _id: req.params.id },{ ...postObject, _id: req.params.id })
+        .then(() => res.status(200).json({ message: "Post modifié !" }))
+        .catch((error) => res.status(400).json({ error }));
+    });
 
     // Mise à jour du message
     // await
     Post.update(newPostData, { where: { id: postId } }).then(() => {
-      Post.findByPk(req.params.id).then((newpost) => {
+      Post.findOne(req.params.id).then((newpost) => {
         if (newpost === null) {
           return res
             .status(404)
@@ -170,17 +155,7 @@ exports.updatePost = async (req, res) => {
           attachment: newpost.attachment
         };
 
-        const token = jwt.sign({
-            id: newuser.id,
-            name: newuser.name,
-            firstname: newuser.firstname,
-            email: newuser.email,
-            username: newuser.username,
-        },
-        process.env.JWT_SECRET,
-        { expiresIn: process.env.JWT_DURING }) 
-
-        return res.status(201).json({ accessToken: token, postData });
+        return res.status(201).json({ postData });
       });
     });
 

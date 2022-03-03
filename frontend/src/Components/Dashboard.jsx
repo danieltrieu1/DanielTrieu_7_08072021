@@ -89,8 +89,10 @@ export default class Dashboard extends Component {
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.uploadHandler = this.uploadHandler.bind(this);
+    this.deleteUser = this.deleteUser.bind(this);
     // this.onChangePassword = this.onChangePassword.bind(this);
     this.state = {
+
       currentUser: AuthService.getCurrentUser(),
 
       username: "",
@@ -113,6 +115,14 @@ export default class Dashboard extends Component {
   fileChangedHandler = (event) => {
     this.setState({ selectedFile: event.target.files[0] });
   };
+
+  deleteUser() {
+    axios.delete(`http://127.0.0.1:8080/users/`, { headers: AuthHeader() } )
+      .then(() => {
+        this.setState({ currentUser: {} })
+        AuthService.logout()
+      })
+  }
 
   state = { selectedFile: null };
 
@@ -154,10 +164,11 @@ export default class Dashboard extends Component {
       <PageWrapper>
         <Container>
           <ProfilePicture>
-            <ProfileImage
-              src={this.state.currentUser.data.userData.attachment}
-              alt=""
-            />
+            {/* <ProfileImage
+              // src={this.state.currentUser.data.userData.attachment}
+              //alt=""
+            /> */}
+            <p>{this.state.currentUser}</p>
           </ProfilePicture>
           <FormGroup>
             <FormInput type="file" onChange={this.fileChangedHandler} />
@@ -213,7 +224,7 @@ export default class Dashboard extends Component {
             </div>
 
             <div>
-              <StyledButton>Supprimer votre compte</StyledButton>
+              <StyledButton onClick={this.deleteUser}>Supprimer votre compte</StyledButton>
             </div>
           </FormCard>
         </Container>

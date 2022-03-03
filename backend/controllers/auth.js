@@ -56,7 +56,8 @@ exports.login = async (req, res) => {
             firstname: user.firstname,
             email: user.email,
             // isAdmin: user.isAdmin,
-            username: user.username
+            username: user.username,
+            attachment: user.attachment
          }
 
         // Génération du token
