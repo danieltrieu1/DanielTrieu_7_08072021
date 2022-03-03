@@ -17,10 +17,10 @@ router.get('/', checkToken, postCtrl.getAllPosts)
 router.get('/:id', checkToken, postCtrl.getPost)
 
 // Création du message
-router.put('/', multer, postCtrl.createPost)
+router.put('/', checkToken, multer, postCtrl.createPost)
 
 // Modification du message
-router.patch('/:id', checkToken, postCtrl.updatePost)
+router.patch('/:id', checkToken, multer, postCtrl.updatePost)
 
 // Suppression du message (Hard Delete)
 router.delete('/:id', checkToken, postCtrl.deletePost)

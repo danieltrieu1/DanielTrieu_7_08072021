@@ -1,169 +1,217 @@
-const db = require('../db.config')
-const Post = db.post
-const Note = db.note
+const db = require("../db.config");
+const Post = db.post;
+const Note = db.note;
+const jwt = require("jsonwebtoken");
 
 const fs = require("fs");
 
 // Ensemble des messages
 exports.getAllPosts = (req, res) => {
-    Post.findAll({ include: Note })
-        .then( post => res.json({ data: post }))
-        .catch( error => res.status(500).json({ message: 'Database Error', error: error }))
-}
+  Post.findAll({ include: Note })
+    .then((post) => res.json({ data: post }))
+    .catch((error) =>
+      res.status(500).json({ message: "Database Error", error: error })
+    );
+};
 
 // Message unique
 exports.getPost = async (req, res) => {
-    let postId = parseInt(req.params.id)
+  let postId = parseInt(req.params.id);
 
-    // Vérification du champs id
-    if(!postId){
-        return res.json(400).json({ message: 'Missing Parameter' })
-    }
+  // Vérification du champs id
+  if (!postId) {
+    return res.json(400).json({ message: "Missing Parameter" });
+  }
 
-    try {    
-        // Récupération du message
-        let post = await Post.findOne({ where: { id: postId }, raw: true })
+  try {
+    // Récupération du message
+    let post = await Post.findOne({ where: { id: postId }, raw: true });
 
-        // Test si résultat null
-        if (post === null) {
-            return res.status(404).json({ message : 'This post does not exit !' })
+    // Test si résultat null
+    if (post === null) {
+      return res.status(404).json({ message: "This post does not exit !" });
     }
 
     // Renvoi du message trouvé
-    return res.json({ data: post }) 
+    return res.json({ data: post });
+  } catch (error) {
+    return res.status(500).json({ message: "Database Error", error: error });
+  }
 
-    } catch (error) {
-        return res.status(500).json({ message: 'Database Error', error: error })
-    }
+  //--------------------------------------------------------------------------------------
+  // CODE PAS FACTORISÉ CORRECTEMENT
+  // // Récupération du message
+  // Post.findOne({ where: {id: postId, raw: true} })
+  //     .then(post => {
+  //         if (post === null) {
+  //             return res.status(404).json({ message : 'This post does not exit !' })
+  //         }
 
-
-    //--------------------------------------------------------------------------------------
-    // CODE PAS FACTORISÉ CORRECTEMENT
-    // // Récupération du message
-    // Post.findOne({ where: {id: postId, raw: true} })
-    //     .then(post => {
-    //         if (post === null) {
-    //             return res.status(404).json({ message : 'This post does not exit !' })
-    //         }
-
-    //         // Message trouvé
-    //         return res.json({ data: post }) 
-    //     })
-    //     .catch(error => res.status(500).json({ message: 'Database Error', error: error }))
-    //---------------------------------------------------------------------------------------
-}
+  //         // Message trouvé
+  //         return res.json({ data: post })
+  //     })
+  //     .catch(error => res.status(500).json({ message: 'Database Error', error: error }))
+  //---------------------------------------------------------------------------------------
+};
 
 // Création du message
 exports.createPost = async (req, res) => {
-    const { user_id, title, content } = req.body
-    console.log(req.body);
+  const { user_id, title, content } = req.body;
+  console.log(req.body);
 
-    // Validation des données reçues
-    if (!user_id || !title || !content) {
-        return res.status(400).json({ message: 'Missing Data' })
-    }
+  // Validation des données reçues
+  if (!user_id || !title || !content) {
+    return res.status(400).json({ message: "Missing Data" });
+  }
 
-    try{
-        // Vérification si le message existe
-        let post = await Post.findOne({ where: { title: title }, raw: true })
-        
-        //Test si résultat null
-        // if (post !== null) {
-        //     return res.status(409).json({ message: `The message ${title} already exists !` })
-        // }
+  try {
+    // Vérification si le message existe
+    let post = await Post.findOne({ where: { title: title }, raw: true });
 
-        // Création du message
-        let newPost = {
-            title: req.body.title,
-            content: req.body.content,
-            user_id: req.body.user_id,
-            attachment: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-        }
+    //Test si résultat null
+    // if (post !== null) {
+    //     return res.status(409).json({ message: `The message ${title} already exists !` })
+    // }
 
-        post = await Post.create(newPost)
-        return res.json({ message: 'Post Created', data: post })
-    } catch (error) {
-        return res.status(500).json({ message: 'Database Error', error: error })
-    }
-}
-    
+    // Création du message
+    let newPost = {
+      title: req.body.title,
+      content: req.body.content,
+      user_id: req.body.user_id,
+      attachment: `${req.protocol}://${req.get("host")}/images/${
+        req.file.filename
+      }`,
+    };
 
-    //-----------------------------------------------------------------------
-    // CODE NON FACTORISE CORRECTEMENT
-    // Post.findOne({ where: { user_id: user_id} && { title: title } && { content: content }, raw: true})
-    //     .then(post => {
-    //         // Vérification de l'existence de l'utilisateur
-    //         if (post !== null) {
-    //             return res.status(400).json({ message: `This message already exists !`})
-    //         }
+    post = await Post.create(newPost);
+    return res.json({ message: "Post Created", data: post });
+  } catch (error) {
+    return res.status(500).json({ message: "Database Error", error: error });
+  }
+};
 
-    //                 // Création du message
-    //                 Post.create(req.body)
-    //                     .then(post => res.json({ message: 'Post Created', data: post }))
-    //                     .catch(error => res.status(500).json({ message: 'Database Error', error: error }))
-    //             })
-    //     .catch(error => res.status(500).json({ message: 'Database Error', error: error }))
-    //-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
+// CODE NON FACTORISE CORRECTEMENT
+// Post.findOne({ where: { user_id: user_id} && { title: title } && { content: content }, raw: true})
+//     .then(post => {
+//         // Vérification de l'existence de l'utilisateur
+//         if (post !== null) {
+//             return res.status(400).json({ message: `This message already exists !`})
+//         }
+
+//                 // Création du message
+//                 Post.create(req.body)
+//                     .then(post => res.json({ message: 'Post Created', data: post }))
+//                     .catch(error => res.status(500).json({ message: 'Database Error', error: error }))
+//             })
+//     .catch(error => res.status(500).json({ message: 'Database Error', error: error }))
+//-----------------------------------------------------------------------
 
 // Modification du message
 exports.updatePost = async (req, res) => {
-    let postId = parseInt(req.params.id)
+  let postId = parseInt(req.params.id);
 
-    // Vérification si le champ id est présent et cohérent
-    if (!postId) {
-        return res.status(400).json({ message: 'Missing parameter' })
+  // Vérification si le champ id est présent et cohérent
+  if (!postId) {
+    return res.status(400).json({ message: "Missing parameter" });
+  }
+
+  try {
+    // Recherche du message et vérification
+    let post = await Post.findOne({ where: { id: postId }, raw: true });
+    if (post === null) {
+      return res.status(404).json({ message: "This message does not exist !" });
     }
 
-    try{
-        // Recherche du message et vérification
-        let post = await Post.findOne({ where: { id: postId }, raw: true })
-        if (post === null) {
-            return res.status(404).json({ message: 'This message does not exist !' })
+    // const filename = sauce.imageUrl.split("/images/")[1];
+
+    // fs.unlink(`images/${filename}`, () => {
+    //   const postObject = req.file ?
+    //     {
+    //       ...JSON.parse(req.body.post),
+    //       imageUrl: `${req.protocol}://${req.get("host")}/images/${ req.file.filename }`,
+    //     } : { ...req.body };
+
+    //   Post.updateOne({ _id: req.params.id },{ ...postObject, _id: req.params.id })
+    //     .then(() => res.status(200).json({ message: "Post modifié !" }))
+    //     .catch((error) => res.status(400).json({ error }));
+    // });
+
+    let newPostData = {};
+    if (req.file) {
+      newPostData = {
+        ...req.body,
+        attachment: `${req.protocol}://${req.get("host")}/images/${
+          req.file.filename
+        }`,
+      };
+      // console.log("test")
+    } else {
+      newPostData = {
+        ...req.body,
+      };
+    }
+
+    // Mise à jour du message
+    // await
+    Post.update(newPostData, { where: { id: postId } }).then(() => {
+      Post.findByPk(req.params.id).then((newpost) => {
+        if (newpost === null) {
+          return res
+            .status(404)
+            .json({ message: "This post does not exist !" });
         }
 
-        const filename = sauce.imageUrl.split("/images/")[1];
+        const postData = {
+          id: newpost.id,
+          user_id: newpost.user_id,
+          title: newpost.title,
+          content: newpost.content,
+          attachment: newpost.attachment
+        };
 
-        fs.unlink(`images/${filename}`, () => {
-          const postObject = req.file ? 
-            {
-              ...JSON.parse(req.body.post),
-              imageUrl: `${req.protocol}://${req.get("host")}/images/${ req.file.filename }`,
-            } : { ...req.body };
+        const token = jwt.sign({
+            id: newuser.id,
+            name: newuser.name,
+            firstname: newuser.firstname,
+            email: newuser.email,
+            username: newuser.username,
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: process.env.JWT_DURING }) 
 
-          Post.updateOne({ _id: req.params.id },{ ...postObject, _id: req.params.id })
-            .then(() => res.status(200).json({ message: "Post modifié !" }))
-            .catch((error) => res.status(400).json({ error }));
-        });
+        return res.status(201).json({ accessToken: token, postData });
+      });
+    });
 
-        // Mise à jour du message
-        await Post.update(req.body, { where: { id: postId } })
-        return res.json({ message: 'Post Updated' })
-    }catch(error){
-        return res.status(500).json({ message: 'Database Error', error: error })
-    }    
-}
+    // return res.json({ message: 'Post Updated' })
+  } catch (error) {
+    return res.status(500).json({ message: "Database Error", error: error });
+  }
+};
 
 // Suppression du message (Hard Delete)
 exports.deletePost = (req, res) => {
-    let postId = parseInt(req.params.id)
+  let postId = parseInt(req.params.id);
 
-    // Vérification du champ id
-    if(!postId){
-        return res.json(400).json({ message: 'Missing Parameter' })
-    }
+  // Vérification du champ id
+  if (!postId) {
+    return res.json(400).json({ message: "Missing Parameter" });
+  }
 
-    const filename = post.imageUrl.split("/images/")[1];
+  const filename = post.imageUrl.split("/images/")[1];
 
-    // fs.unlink: Permet la suppression du fichier
-    fs.unlink(`images/${filename}`, () => {
-      Post.deleteOne({ _id: req.params.id })
-        .then(() => res.status(200).json({ message: "Post supprimé !" }))
-        .catch((error) => res.status(400).json({ error }));
-    }); 
+  // fs.unlink: Permet la suppression du fichier
+  fs.unlink(`images/${filename}`, () => {
+    Post.deleteOne({ _id: req.params.id })
+      .then(() => res.status(200).json({ message: "Post supprimé !" }))
+      .catch((error) => res.status(400).json({ error }));
+  });
 
-    // Suppression du message
-    Post.destroy({ where: { id: postId }, force: true })
-        .then(() => res.status(204).json({ message: 'Post Deleted' }))
-        .catch(error => res.status(500).json({ message: 'Database Error', error: error }))
-}
-
+  // Suppression du message
+  Post.destroy({ where: { id: postId }, force: true })
+    .then(() => res.status(204).json({ message: "Post Deleted" }))
+    .catch((error) =>
+      res.status(500).json({ message: "Database Error", error: error })
+    );
+};

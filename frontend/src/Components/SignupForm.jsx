@@ -1,7 +1,96 @@
 import React, { Component } from "react";
 import AuthService from "../services/auth.service";
+import styled from "styled-components";
 // import { Link } from 'react-router-dom';
 
+const PageWrapper = styled.div`
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  // background-color: white;
+  opacity: 0.97;
+  height: 100%;
+  margin: 1rem;
+  border-radius: 1rem;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgb(237, 232, 232);
+  border-radius: 1rem;
+  // height: 100%;
+  padding: 2rem;
+  transition: all 0.4s ease-in-out;
+  margin: 1rem;
+  box-shadow: 0px 0px 20px -10px black;
+`;
+
+const FormCard = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 20rem;
+`;
+
+const CardTitle = styled.h2`
+  font-size: 30px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
+  color: rgb(255, 87, 54);
+`;
+
+const FormGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+`;
+const FormLabel = styled.label`
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgb(13, 32, 89);
+  text-decoration: none;
+  margin: 0;
+`;
+
+const FormInput = styled.input`
+  z-index: 1;
+  opacity: 1;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+`;
+
+const StyledButton = styled.button`
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #ff5736;
+  color: white;
+  width: 100%;
+`;
+
+const ProfilePicture = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const ProfileImage = styled.img`
+  // border: solid 3px red;
+
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+`;
 
 export default class Register extends Component {
   constructor(props) {
@@ -29,7 +118,7 @@ export default class Register extends Component {
   handleRegister(e) {
     e.preventDefault();
     this.setState({
-      successful: false
+      successful: false,
     });
     AuthService.register(
       this.state.username,
@@ -38,13 +127,13 @@ export default class Register extends Component {
     ).then(
       () => {
         this.setState({
-          successful: true
+          successful: true,
         });
         this.props.history.push("/login");
         window.location.reload();
       },
       (error) => {
-        console.log(error)
+        console.log(error);
         this.setState({
           successful: false,
         });
@@ -53,55 +142,56 @@ export default class Register extends Component {
   }
   render() {
     return (
-      <div className="">
-        <div className="card card-container">
-          <div><h2>Inscris-toi et<br/> Rejoins-nous !</h2></div>
-          <form
-            onSubmit={this.handleRegister}
-          >
+      <PageWrapper>
+        <Container>
+          <CardTitle>
+            Inscris-toi et
+            <br /> Rejoins-nous !
+          </CardTitle>
+          <FormCard onSubmit={this.handleRegister}>
             {!this.state.successful && (
               <div>
-                <div className="form-group">
-                  <label htmlFor="username">Username</label>
-                  <input
+                <FormGroup>
+                  <FormLabel htmlFor="username">Username</FormLabel>
+                  <FormInput
                     type="text"
                     className="form-control"
                     name="username"
                     value={this.state.username}
                     onChange={this.onChangeUsername}
                   />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="email">Email</label>
-                  <input
+                </FormGroup>
+                <FormGroup>
+                  <FormLabel htmlFor="email">Email</FormLabel>
+                  <FormInput
                     type="text"
                     className="form-control"
                     name="email"
                     value={this.state.email}
                     onChange={this.onChangeEmail}
                   />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="password">Password</label>
-                  <input
+                </FormGroup>
+                <FormGroup>
+                  <FormLabel htmlFor="password">Password</FormLabel>
+                  <FormInput
                     type="password"
                     className="form-control"
                     name="password"
                     value={this.state.password}
                     onChange={this.onChangePassword}
                   />
-                </div>
-                <div className="form-group">
-                  <button className="btn btn-primary btn-block">S'inscrire</button>
-                </div>
-                <div className="form-group">
-                <a href='/login'>Vous avez déjà un compte ?</a>
-                </div>
+                </FormGroup>
+                <FormGroup>
+                  <StyledButton>S'inscrire</StyledButton>
+                </FormGroup>
+                <FormGroup>
+                  <a href="/login">Vous avez déjà un compte ?</a>
+                </FormGroup>
               </div>
             )}
-          </form>
-        </div>
-      </div>
+          </FormCard>
+        </Container>
+      </PageWrapper>
     );
   }
 }

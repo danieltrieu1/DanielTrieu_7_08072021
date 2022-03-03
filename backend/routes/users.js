@@ -5,6 +5,8 @@ const checkToken = require('../middleware/checkToken')
 
 const userCtrl = require('../controllers/user')
 
+const multer = require('../middleware/multer-config')
+
 // Récupération du router
 let router = express.Router()
 
@@ -20,7 +22,7 @@ router.get('/:id', checkToken, userCtrl.getUser)
 router.put('/', checkToken, userCtrl.createUser)
 
 // Modification l'utilisateur
-router.patch('/:id', checkToken, userCtrl.updateUser)
+router.patch('/:id', checkToken, multer, userCtrl.updateUser)
 
 // Suppression de l'utilisateur (Hard Delete)
 router.delete('/:id', checkToken, userCtrl.deleteUser)

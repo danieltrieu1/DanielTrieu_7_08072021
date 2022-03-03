@@ -5,9 +5,15 @@
     font-family: Roboto, sans-serif;
 }
 
-.App {
-    z-index: 1;
+body {
+    margin: 0;
+}
+
+.App{
+    display: flex;
+    justify-content: center;
     height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center; 
@@ -16,223 +22,12 @@
     position: relative;
 }
 
-.App:after {
-    position: absolute;
-    background: rgb(0,0,0);
-    background: linear-gradient(-90deg, rgba(0,0,0,0) 0%, rgba(38, 83, 219, 0.278) 100%);
-    /* background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(255, 98, 0, 0.281) 100%); */
-    /* background-color: rgba(38, 83, 219, 0.281);    */
-    content: " ";
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    /* background: rgb(255,255,255);
-    background: linear-gradient(170deg, rgba(255,255,255,1) 0%, rgba(255,66,0,1) 100%); */
-}
-
-/* ----------------------------------------------------- */
-
-.col-md-12 {
-    display: flex;
-    justify-content: center;
-    width: auto;
-    margin-top: 6rem;
-}
-
-
-.Navbar {
-    position: absolute;
-    width: 100%;
-    margin: auto;
-    z-index: 2; 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    height: 1rem;
-    padding: 1rem;
-    background-color: rgb(255, 87, 54); 
-    box-shadow: 0px 0px 20px -5px black;
-    opacity: 0.97;
-    top: 0;
-    left: 0;
-}
-
-.NavbarLink {
-    list-style-type: none;
-    display: flex;
-    gap: 3rem;
-    align-items: center; 
-}
-
-.NavLink {
-    text-decoration: none;
-    color: white;   
-}
-
-.NavLogo > img {
-    margin-top: -72px;
-    max-height: 10rem;
-    max-width: 10rem;
-}
-
-/* ---------------------------------------- */
-
-.Container {
-    z-index: 1;
-    display: flex;
-    /* margin: auto; */
-    /* margin: 2rem; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 1rem;
-    box-shadow: 0px 0px 20px -5px black;
-    transition: all 0.4s ease-in-out;
-}
-
-.card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    list-style-type: none;
-    /* z-index: 0; */
-    background-color: rgb(237, 232, 232);
-    border-radius: 1rem;
-    width: 20rem;
-    min-height: 25rem;
-    padding: 2rem;
-    transition: all 0.4s ease-in-out;
-    opacity: 0.95;
-}
-
-.card h2 {
-    font-size: 30px;
-    display: flex;
-    justify-content: center;
-    font-weight: 500;
-    color: rgb(255, 87, 54);
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 3px;
-    margin-top: 10px;
-}
-
-.form-group > label {
-    font-size: 14px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: rgb(13, 32, 89);
-    text-decoration: none;
-    /* border: solid 3px red; */
-    margin: 0;
-}
-
-.form-group > input {
-    z-index: 1;
-    opacity: 1;
-    /* border: solid 3px green; */
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-}
-
-.form-group > button {
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-
-    /* width: fit-content; */
-    margin-bottom: 0;
-    margin-top: 1rem;
-    padding: 10px;
-    /* padding-right: 20px;
-    padding-left: 20px; */
-    font-size: 16px;
-    background-color: #ff5736;
-    color: white;
-
-    background-size: 300% 100%; /* anim */
-    transition: all 0.4s ease-in-out;
-
-}
-
-.form-group > button:hover {
-        background-position: 80% 0;
-        transition: all 0.4s ease-in-out;
-        box-shadow: 1px 1px 15px 1px;
-}
-
-.form-group > a {
-    color: #ff5736;
-    margin: 10px;
-    font-size: 14px;
-    display: flex;
-    justify-content: center;
-    text-decoration: none;
-    border: none;
-    transition: all 0.4s ease-in-out;
-}
-.form-group a:hover {
-    font-weight: 500;
-    transition: all 0.4s ease-in-out;
-    text-decoration: underline;
-}
-
-/* -------------------------------------------------------- */
-
-.profileCardContent > header {
-    display: flex;
-    justify-content: center;
-    color: rgb(255, 87, 54);
-    font-size: 25px;
-    font-weight: 300;
-    margin-top: 1rem;
-}
-
-.profileContainer p {
+p {
     visibility: hidden;
-}
-
-.profilePicture {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.profilePicture > img {
-    border: solid 3px red;
-    border-radius: 50%;
-    width: 10rem;
-    height: 10rem;
-}
-
-/* ----------------------------------- */
-
-.homeContainer {
-    width: 100vh;
 }
 
 .homeBox {
     background-image: url('./assets/kisspng-merguez-sausage-moroccan-cuisine-lamb-and-mutton-c-andiamo-pizza-combs-la-villa-livre-des-pizzas-c-5baceeb24c9f66.3907973315380599543139_1024x1024.png');
     height: 30rem;
-}
-
-/* ----------------------------------- */
-
-.logoutBtn {
-
-    display: flex;
-    justify-content: center;
-    margin: 2rem;
-    background-color: red;
 }
 

@@ -1,62 +1,207 @@
 import React, { Component } from "react";
 import axios from "axios";
-// import { Link } from "react-router-dom";
+import AuthHeader from "../services/auth-header";
+import AuthService from "../services/auth.service"
+import styled from "styled-components";
+
+const PageWrapper = styled.div`
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    // background-color: white;
+    opacity:0.97;
+    height: 100%;
+    margin: 1rem;
+    border-radius: 1rem;
+`
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgb(237, 232, 232);
+    border-radius: 1rem;
+    // height: 100%;
+    padding: 2rem;
+    transition: all 0.4s ease-in-out;
+    margin: 1rem;
+    box-shadow: 0px 0px 20px -10px black;
+`
+
+const FormCard = styled.form`
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 20rem;
+`
+
+const CardTitle = styled.h2`
+    font-size: 30px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center; 
+    font-weight: 500;
+    color: rgb(255, 87, 54);
+`
+
+const FormGroup = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+`
+const FormLabel = styled.label`
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: rgb(13, 32, 89);
+    text-decoration: none;
+    margin: 0;
+`
+
+const FormInput = styled.input`
+    z-index: 1;
+    opacity: 1;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+`
+
+const StyledButton = styled.button`
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #ff5736;
+    color: white;
+    width: 100%;
+`
+
+const ProfilePicture = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+`
+
+const ProfileImage = styled.img`
+    // border: solid 3px red;
+
+    border-radius: 50%;
+    width: 10rem;
+    height: 10rem;
+`
 
 class FormPost extends Component {
-    constructor(props) {
-        super(props)
-        this.onChangeTitle = this.onChangeTitle.bind(this);
-        this.onChangeContent = this.onChangeContent.bind(this);
-        this.state = {
-          title: "",
-          content: "",
-          selectedFile: null,
-          loading: false,
-        }
+  constructor(props) {
+    super(props);
+    this.onChangeTitle = this.onChangeTitle.bind(this);
+    this.onChangeContent = this.onChangeContent.bind(this);
+    this.uploadHandler = this.uploadHandler.bind(this);
+    this.state = {
+
+      currentUser: AuthService.getCurrentUser(),
+
+      title: "",
+      content: "",
+      user_id: "",
+      selectedFile: null,
+      loading: false,
+    };
+  }
+
+  onChangeTitle(e) {
+    this.setState({ title: e.target.value });
+  }
+  onChangeContent(e) {
+    this.setState({ content: e.target.value });
+  }
+
+  fileChangedHandler = (event) => {
+    this.setState({ selectedFile: event.target.files[0] });
+  };
+
+  state = { selectedFile: null };
+
+  uploadHandler(e) {
+    e.preventDefault();
+    const formData = new FormData();
+    if (this.state.selectedFile) {
+      formData.append(
+        "file",
+        this.state.selectedFile,
+        this.state.selectedFile.name
+      );
     }
 
-    onChangeTitle(e) {
-        this.setState({ title: e.target.value });
-    }
-    onChangeContent(e) {
-        this.setState({ content: e.target.value });
+    if (this.state.title !== "") {
+      formData.append("title", this.state.title);
     }
 
-    fileChangedHandler = event => {
-        this.setState({ selectedFile: event.target.files[0] })
-      }
-      
-      state = { selectedFile: null }
-      
-      uploadHandler = () => {
-        axios.post('http://127.0.0.1:8080/', this.state.selectedFile)
-      }
+    if (this.state.content !== "") {
+      formData.append("content", this.state.content);
+    }
 
-
+    axios
+      .patch(
+        "http://127.0.0.1:8080/posts/" +
+        this.state.currentUser.data.userData.id,
+        formData,
+        { headers: AuthHeader() }
+      )
+      .then((response) => {
+        if (response.data.accessToken) {
+          localStorage.setItem("user", JSON.stringify(response));
+          window.location.reload();
+        }})
+      .catch((error) => console.log(error));
+    }
 
   render() {
     return (
-        // <PostStyled>
-            <div className="Container">
-                <div className="card card-container">
-                    <h2>Ecris une publication !</h2>
-                        <div className="form-group">
-                            <span>Ajouter un titre</span>
-                            <input type='text' className='title' value={this.state.title}
-                onChange={this.onChangeTitle}/>
-                        </div>
-                        <div className="form-group form-content">
-                            <span>Contenu de la publication</span>
-                            <input type='text' className='content' value={this.state.content}
-                onChange={this.onChangeContent}/>
-                        </div>
-                        <div className="form-group">
-                        <input type="file" onChange={this.fileChangedHandler}/>
-                        <button onClick={this.uploadHandler}>Envoyer</button>
-                        </div>
-                </div>
-            </div>
-        // </PostStyled>
+      <PageWrapper>
+        <Container>
+          <CardTitle>Rédige une publication !</CardTitle>
+
+          <FormCard onSubmit={this.uploadHandler}>
+
+
+                <FormGroup>
+                <FormLabel htmlFor="title">Mettre un titre</FormLabel>
+                <FormInput
+                    type="text"
+                    className="title"
+                    value={this.state.title}
+                    onChange={this.onChangeTitle}
+                />
+                </FormGroup>
+
+                <FormGroup>
+                <FormLabel htmlFor="content">Contenu de la publication</FormLabel>
+                <FormInput
+                    type="text"
+                    className="content"
+                    value={this.state.content}
+                    onChange={this.onChangeContent}
+                />
+                </FormGroup>
+
+                <FormGroup>
+                <FormInput type="file" onChange={this.fileChangedHandler} />
+                </FormGroup>
+
+                <FormGroup>
+                <StyledButton className="button" disabled={this.state.loading}>
+                    {this.state.loading && <span className=""></span>}
+                    <span>Envoyer</span>
+                </StyledButton>
+                </FormGroup>
+
+          </FormCard>
+        </Container>
+    </PageWrapper>
     );
   }
 }

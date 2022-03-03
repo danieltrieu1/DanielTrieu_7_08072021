@@ -47,17 +47,13 @@ app.use((req, res, next) => {
 })
 
 // Routage
-app.get('/', (req, res) => res.send('<h1 style="color: green; width= 100%; height= 5rem">It works perfectly ! Good job !</h1>'))
+
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use('/users', userRouter)
 app.use('/posts', postRouter)
 app.use('/notes', noteRouter)
 
 app.use('/auth', authRouter)
-
-app.get('*', (req, res) => res.status(501).send('<h1 style="color: red;">What the hell are you doing ?!</h1>'))
-
-// Gestion des fichiers images de manière statique
-app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app

@@ -30,13 +30,12 @@ class AuthService {
     return JSON.parse(localStorage.getItem('user'));;
   }
 
-  userDelete(id, e) {
-    e.preventDefault()
-    return axios.delete(API_URL + `user/${id}`,)
-      .then(response => console.log('Supprimé', response)
-      .catch(error => console.log( error )) )
-    
-  }
+  // userDelete(id, e) {
+  //   e.preventDefault()
+  //   return axios.delete(API_URL + `user/${id}`,)
+  //     .then(response => console.log('Supprimé', response)
+  //     .catch(error => console.log( error )) )
+  // }
 }
 
 export default new AuthService();
