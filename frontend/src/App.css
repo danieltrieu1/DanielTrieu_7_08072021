@@ -31,3 +31,53 @@ p {
     height: 30rem;
 }
 
+/* ------------------------------------------------------------------------------- */
+
+.postBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    border: solid 2px red;
+    padding: 2rem;
+    background-color: pink ;
+    border-radius: 1rem;
+}
+
+.post {
+    border: solid 2px green;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.noteBox {
+    border: solid 2px blue;
+    border-radius: 1rem;
+    padding: 1rem;
+    background-color: yellow;
+}
+
+.allNotes {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: solid 2px red;
+    padding: 1rem;
+}
+
+.note{
+    display: flex;
+    flex-direction: column;
+
+    border: solid 2px blue;
+    padding: 1rem;
+}
+
+.noteInput {
+    padding: 10px;
+}
+
+.handleNote {
+    display: flex;
+    flex-direction: column;
+}
