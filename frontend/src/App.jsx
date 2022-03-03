@@ -12,7 +12,7 @@ import Dashboard from "./Components/Dashboard";
 import FormPost from "./Components/FormPost";
 import Home from "./Components/Home";
 import NavBar from "./Components/NavBar";
-import Forum from "./Components/Forum";
+// import Forum from "./Components/Forum";
 import Error from "./Components/Error";
 
 // const AppWrapper = styled.div`
@@ -58,7 +58,7 @@ class App extends Component {
           <Route path="/profile" component={Profile} />
           <Route path="/formpost" component={FormPost} />
           <Route path="/dashboard" component={Dashboard} />
-          <Route path="/forum" component={Forum} />
+          {/* <Route path="/forum" component={Forum} /> */}
 
           <Route path="*" component={Error} />
         </Switch>

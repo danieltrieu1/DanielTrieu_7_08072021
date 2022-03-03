@@ -78,19 +78,19 @@ const StyledButton = styled.button`
   width: 100%;
 `;
 
-const ProfilePicture = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
+// const ProfilePicture = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+// `;
 
-const ProfileImage = styled.img`
-  // border: solid 3px red;
+// const ProfileImage = styled.img`
+//   // border: solid 3px red;
 
-  border-radius: 50%;
-  width: 10rem;
-  height: 10rem;
-`;
+//   border-radius: 50%;
+//   width: 10rem;
+//   height: 10rem;
+// `;
 
 export default class Register extends Component {
   constructor(props) {
