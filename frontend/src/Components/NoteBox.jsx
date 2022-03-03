@@ -7,12 +7,12 @@ class NoteBox extends Component {
   return (
     <div className="noteBox">
 
-    <input value={noteValue}
+    <textarea value={noteValue}
       id="noteInput" onChange={handleNoteValue}
       type="text" placeholder="Rédiger un commentaire ..." />
 
     <button onClick={submitNoteInput} type="submit"     
-      className="noteButtonSubmit">Post</button>
+      className="noteButtonSubmit">Envoyer</button>
     </div>
    )}
   }
