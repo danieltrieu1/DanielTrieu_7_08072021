@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-import AuthHeader from "../services/auth-header";
-import AuthService from "../services/auth.service";
-import UserService from "../services/user.service";
+import authHeader from "../services/auth-header";
+import authService from "../services/auth.service";
+import userService from "../services/user.service";
 import styled from "styled-components";
 import '../App.css'
 
@@ -93,7 +93,7 @@ export default class Dashboard extends Component {
 
 
   constructor(props) {
-    UserService.getAllUsers()
+    userService.getAllUsers()
 
     let users = JSON.parse(localStorage.getItem('allUsers'))
     
@@ -105,7 +105,7 @@ export default class Dashboard extends Component {
     this.deleteUserById = this.deleteUserById.bind(this);
     this.state = {
       allUsers: users,
-      currentUser: AuthService.getCurrentUser(),
+      currentUser: authService.getCurrentUser(),
       username: "",
       email: "",
       loading: false,
@@ -127,9 +127,9 @@ export default class Dashboard extends Component {
 
   deleteUser(e) {
     e.preventDefault();
-    axios.delete(`http://127.0.0.1:8080/users/${this.state.currentUser.data.userData.id}`, { headers: AuthHeader() } )
+    axios.delete(`http://127.0.0.1:8080/users/${this.state.currentUser.data.userData.id}`, { headers: authHeader() } )
       .then(() => {
-        AuthService.logout();
+        authService.logout();
         this.props.history.push("/signup");
         window.location.reload();
         this.setState({ currentUser: false });
@@ -137,9 +137,9 @@ export default class Dashboard extends Component {
   }
 
   deleteUserById(e) {
-    axios.delete(`http://127.0.0.1:8080/users/${e.target.id}`, { headers: AuthHeader() } )
+    axios.delete(`http://127.0.0.1:8080/users/${e.target.id}`, { headers: authHeader() } )
       .then(() => {
-        UserService.getAllUsers();
+        userService.getAllUsers();
         window.location.reload()
       })
   }
@@ -169,7 +169,7 @@ export default class Dashboard extends Component {
         "http://127.0.0.1:8080/users/" +
           this.state.currentUser.data.userData.id,
         formData,
-        { headers: AuthHeader() }
+        { headers: authHeader() }
       )
       .then((response) => {
         if (response.data.accessToken) {

@@ -7,6 +7,7 @@ import {
   faClose,
   faEye,
   faPaperPlane,
+  faSignOut,
   faUserCircle,
   faUserEdit,
 } from "@fortawesome/free-solid-svg-icons";
@@ -150,7 +151,7 @@ class NavBar extends Component {
                 onClick={this.handleLogout}
               >
                 Se déconnecter
-                <FontAwesomeIcon icon={faClose} />
+                <FontAwesomeIcon icon={faSignOut} />
               </StyledLink>
             ) : null}
           </NavLinks>

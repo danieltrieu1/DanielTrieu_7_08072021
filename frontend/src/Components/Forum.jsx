@@ -25,8 +25,8 @@ const PostContainerStyled = styled.div`
   flex-direction: column;
   height: 100%;
   padding: 2rem;
-  background-color: rgb(255, 87, 54);
-  // border-radius: 1rem;
+  background: rgb(255,233,199);
+  background: linear-gradient(0deg, rgba(255,233,199,1) 0%, rgba(255,204,124,1) 100%);
 `;
 const PostBoxStyled = styled.div`
   border-radius: 10px;
@@ -154,31 +154,31 @@ const FormLabel = styled.label`
     margin: 0;
 `
 
-const FormArea = styled.textarea`
+// const FormArea = styled.textarea`
     
-    // z-index: 1;
-    // opacity: 1;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    height: 8rem;
-`
+//     // z-index: 1;
+//     // opacity: 1;
+//     border: none;
+//     padding: 10px;
+//     border-radius: 4px;
+//     height: 8rem;
+// `
 
-const StyledButton = styled.button`
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-    padding: 10px;
-    font-size: 16px;
-    background-color: #ff5736;
-    color: white;
-    width: 100%;
-`
+// const StyledButton = styled.button`
+//     cursor: pointer;
+//     border: none;
+//     border-radius: 4px;
+//     padding: 10px;
+//     font-size: 16px;
+//     background-color: #ff5736;
+//     color: white;
+//     width: 100%;
+// `
 
 class Forum extends Component {
   constructor(props) {
     postService.getAllPosts();
-    // noteService.getAllNotes();
+    noteService.getAllNotes();
 
     authService.getCurrentUser();
 
@@ -327,209 +327,3 @@ class Forum extends Component {
 }
 
 export default Forum;
-
-//_-----------------------------------------------------------
-
-// import React, { Component } from "react";
-// import AuthService from "../services/auth.service";
-// import postService from "../services/post.service";
-// import noteService from "../services/note.service";
-// import "../App.css";
-// import Logo from "../assets/icon-left-font-monochrome-white.png";
-// import axios from "axios";
-// import styled from "styled-components";
-
-// const PageWrapper = styled.div`
-//   z-index: 0;
-//   display: flex;
-//   justify-content: center;
-//   background-color: white;
-//   opacity: 0.97;
-//   height: 100%;
-//   margin: 1rem;
-//   border-radius: 1rem;
-// `;
-
-// const Container = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   background-color: rgb(237, 232, 232);
-//   border-radius: 1rem;
-//   height: 100%;
-//   padding: 2rem;
-//   transition: all 0.4s ease-in-out;
-//   margin: 1rem;
-//   box-shadow: 0px 0px 20px -10px black;
-// `;
-
-// const PostContainerStyled = styled.div`
-
-// `
-// let noteCounter = 1;
-
-// class Forum extends Component {
-//   constructor(props) {
-//     postService.getAllPosts();
-//     noteService.getAllNotes();
-
-//     let posts = JSON.parse(localStorage.getItem("posts"));
-//     let notes = JSON.parse(localStorage.getItem("notes"));
-
-//     this.setAllPosts = this.setAllPosts.bind(this);
-
-//     super(props);
-//     this.deletePostById = this.deletePostById.bind(this);
-//     this.deleteNoteById = this.deleteNoteById.bind(this);
-//     this.state = {
-//       content: "",
-//       user_id: "",
-
-//       postValue: "",
-//       noteValue: "",
-
-//       allPosts: posts,
-//       allNotes: notes,
-
-//       noteValue: "",
-//       noteInput: [{ noteId:"", text: "", }],
-//     };
-//   }
-
-//   handleNoteValue = (e) => {
-//     this.setState({
-//       noteValue: e.target.value,
-//     });
-//   };
-
-//   setNoteInput = () => {
-//     this.setState({
-//       noteInput: [
-//         ...this.state.noteInput,
-//         { noteId: noteCounter++, text: this.state.noteValue },
-//       ],
-//       noteValue: "",
-//     });
-//   };
-
-//   submitNoteInput = () => {
-//     // e.preventDefault();
-//     this.submitNoteInput();
-//   };
-
-//   deletePostById(e) {
-//     e.preventDefault();
-//     console.log(e.target.id);
-//     axios.delete(`http://127.0.0.1:8080/posts/${e.target.id}`).then(() => {
-//       window.location.reload();
-//     });
-//   }
-
-//   deleteNoteById(e) {
-//     e.preventDefault();
-//     axios.delete(`http://127.0.0.1:8080/notes/${e.target.id}`).then(() => {
-//       window.location.reload();
-//     });
-//   }
-
-//   setAllPosts(e) {
-//       this.setState({ postValue: e.target.value });
-//   }
-
-//   deletePost(e) {
-//       e.preventDefault();
-//       axios
-//         .delete(
-//           `http://127.0.0.1:8080/posts/${this.state.postId}`,
-//           { headers: AuthHeader() }
-//         )
-//         .then(() => {
-//           this.props.history.push("/forum");
-//           window.location.reload();
-//           this.setState({ postValue: false });
-//         });
-//   }
-
-//   deleteNote(e) {
-//       e.preventDefault();
-//       axios
-//         .delete(
-//           `http://127.0.0.1:8080/notes/${this.state.noteId}`,
-//           { headers: AuthHeader() }
-//         )
-//         .then(() => {
-//           this.props.history.push("/forum");
-//           window.location.reload();
-//           this.setState({ noteValue: false });
-//         });
-//   }
-
-//   render() {
-//     return (
-//       <PageWrapper>
-//         <Container>
-//           <div className="postBox">
-//             <img className="LogoForum" src={Logo} alt="Logo Groupomania" />
-//             <div>
-//               {this.state.allPosts.map((post) => (
-//                 <div className="postContainer" key={post.content}>
-//                   <div>
-//                     <bouton onClick={this.deletePostById} id={post.id}>
-//                       Supprimer
-//                     </bouton>
-//                     <span className="userIdPost">{`${post.user_id}`}</span>
-//                     <h2 className="titlePost">{`${post.title}`}</h2>
-//                   </div>
-//                   <img
-//                     className="attachmentPost"
-//                     src={`${post.attachment}`}
-//                     alt=""
-//                   />
-//                   <div className="contentPost">{`${post.content}`}</div>
-//                 </div>
-//               ))}
-//               <button onClick={this.deletePost}>Supprimer</button>
-//             </div>
-
-//             {this.state.allPosts.map((note) => (
-//               <div className="noteContainer" key={note.content}>
-//                 <div>
-//                   <bouton onClick={this.deleteNoteById} id={note.id}>
-//                     Supprimer
-//                   </bouton>
-//                   <span className="userIdNote">{`${note.user_id}`}</span>
-//                   <h2 className="titlePost">{`${note.title}`}</h2>
-//                   <h2 className="contentNote">{`${note.content}`}</h2>
-//                 </div>
-//               </div>
-//             ))}
-
-//             {/* <div className="noteBox">
-
-//               <span className="username"></span>
-//                 <label htmlFor="noteArea"></label>
-
-//                 <div className="handleNote">
-//                     <textarea className="noteInput" type="text" placeholder="Écris un commentaire..."></textarea>
-//                     <button>Envoyer</button>
-//                 </div>
-
-//               <div className="allNotes">
-//                 <span>ici s'affiches les commentaires</span>
-//                 <button onClick={this.deleteNote}>Supprimer</button>
-//               </div>
-
-//             </div>
-
-//             <div className="allNotes">
-//                 <span>ici s'affiches les commentaires</span>
-//                 <button onClick={this.deleteNote}>Supprimer</button>
-//             </div> */}
-//           </div>
-//         </Container>
-//       </PageWrapper>
-//     );
-//   }
-// }
-
-// export default Forum;

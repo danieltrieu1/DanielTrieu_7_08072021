@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = "http://localhost:8080/notes/";
+const API_URL = "http://localhost:8080/posts/";
 
 class NoteService {
   getAllNotes() {
@@ -16,7 +16,7 @@ class NoteService {
   }
 
   createNote(content) {
-    return axios.put(API_URL + "note", {
+    return axios.put(API_URL, {
       content,
     })}
 

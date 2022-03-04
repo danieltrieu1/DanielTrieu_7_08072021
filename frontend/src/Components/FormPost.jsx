@@ -164,7 +164,6 @@ class FormPost extends Component {
 
           <FormCard onSubmit={this.uploadHandler}>
 
-
                 <FormGroup>
                 <FormLabel htmlFor="title">Mettre un titre</FormLabel>
                 <FormInput
