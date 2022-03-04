@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import AuthHeader from "../services/auth-header";
+import authHeader from "../services/auth-header";
 import AuthService from "../services/auth.service"
 import styled from "styled-components";
 
@@ -146,7 +146,7 @@ class FormPost extends Component {
       .put(
         "http://127.0.0.1:8080/posts/",
         formData,
-        { headers: AuthHeader() }
+        { headers: authHeader() }
       )
       .then((response) => {
         this.props.history.push("/forum");

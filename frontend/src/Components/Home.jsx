@@ -1,22 +1,24 @@
 import React, { Component } from "react";
-// import { Link } from "react-router-dom";
-// import styled from 'styled-components'
+import styled from "styled-components";
 
-// const HomeStyled = styled.div`
-//     display: flex;
-//     justify-content: center;
-//     border: solid 3px red;
-// ` 
+const PageWrapper = styled.div``;
+
+const Container = styled.div`
+  background-image: url('./assets/icon-left-font-monochrome-white.png')
+  background-color: orange;
+  width: 100%;
+  height: 100vh;
+`
+
 
 class Home extends Component {
   render() {
     return (
-        // <HomeStyled>
-            <div className="homeContainer">
-                <div className="homeBox">
-                </div>
-            </div>
-        // </HomeStyled>
+      <PageWrapper>
+        <Container>
+        <div></div>
+        </Container>
+      </PageWrapper>
     );
   }
 }

@@ -4,7 +4,6 @@ import styled from "styled-components";
 import AuthService from "../services/auth.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faClose,
   faEye,
   faPaperPlane,
   faSignOut,
@@ -13,6 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import Logo from "../assets/icon-left-font-monochrome-white.png";
+import '../App.css'
 
 const NavStyled = styled.nav`
   position: relative;

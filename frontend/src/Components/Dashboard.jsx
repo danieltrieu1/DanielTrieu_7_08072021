@@ -4,9 +4,7 @@ import authHeader from "../services/auth-header";
 import authService from "../services/auth.service";
 import userService from "../services/user.service";
 import styled from "styled-components";
-import '../App.css'
-
-
+import "../App.css";
 
 const PageWrapper = styled.div`
   // z-index: 0;
@@ -89,14 +87,11 @@ const ProfileImage = styled.img`
 `;
 
 export default class Dashboard extends Component {
-
-
-
   constructor(props) {
-    userService.getAllUsers()
+    userService.getAllUsers();
 
-    let users = JSON.parse(localStorage.getItem('allUsers'))
-    
+    let users = JSON.parse(localStorage.getItem("allUsers"));
+
     super(props);
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -110,7 +105,7 @@ export default class Dashboard extends Component {
       email: "",
       loading: false,
       selectedFile: null,
-      reload: false
+      reload: false,
     };
   }
 
@@ -127,21 +122,28 @@ export default class Dashboard extends Component {
 
   deleteUser(e) {
     e.preventDefault();
-    axios.delete(`http://127.0.0.1:8080/users/${this.state.currentUser.data.userData.id}`, { headers: authHeader() } )
+    axios
+      .delete(
+        `http://127.0.0.1:8080/users/${this.state.currentUser.data.userData.id}`,
+        { headers: authHeader() }
+      )
       .then(() => {
         authService.logout();
         this.props.history.push("/signup");
         window.location.reload();
         this.setState({ currentUser: false });
-      })
+      });
   }
 
   deleteUserById(e) {
-    axios.delete(`http://127.0.0.1:8080/users/${e.target.id}`, { headers: authHeader() } )
+    axios
+      .delete(`http://127.0.0.1:8080/users/${e.target.id}`, {
+        headers: authHeader(),
+      })
       .then(() => {
         userService.getAllUsers();
-        window.location.reload()
-      })
+        window.location.reload();
+      });
   }
 
   state = { selectedFile: null };
@@ -176,84 +178,96 @@ export default class Dashboard extends Component {
           localStorage.setItem("user", JSON.stringify(response));
           window.location.reload();
         }
-      }).then(alert('Vos changements ont bien été pris en compte !'))
+      })
+      // .then(alert("Vos changements ont bien été pris en compte !"))
       .catch((error) => console.log(error));
   }
   render() {
     return (
       <PageWrapper>
-          {this.state.currentUser.data.userData.isAdmin === 0 ? ( 
-        <Container>
-          <ProfilePicture>
-            <ProfileImage
-              src={this.state.currentUser.data.userData.attachment}
-              alt=""
-            />
-          </ProfilePicture>
-          <FormGroup>
-            <FormInput type="file" onChange={this.fileChangedHandler} />
-          </FormGroup>
-          <FormCard onSubmit={this.uploadHandler}>
-            <FormGroup>
-              <FormLabel htmlFor="username">Changer votre pseudo</FormLabel>
-              <FormInput
-                type="text"
-                className="form-control"
-                name="username"
-                value={this.state.username}
-                onChange={this.onChangeUsername}
-              />
-            </FormGroup>
-            <FormGroup>
-              <FormLabel htmlFor="email">Changer votre adresse mail</FormLabel>
-              <FormInput
-                type="text"
-                className="form-control"
-                name="email"
-                value={this.state.email}
-                onChange={this.onChangeEmail}
-              />
-            </FormGroup>
-            <div>
-              <StyledButton disabled={this.state.loading}>
-                {this.state.loading && <span className=""></span>}
-                <span>Enregistrer les modifications</span>
-              </StyledButton>
-            </div>
-            <div>
-              <StyledButton onClick={this.deleteUser}>Supprimer votre compte</StyledButton>
-            </div>
-          </FormCard>
-        </Container>
-        ) : 
-        <div className="ensemble">
+        {this.state.currentUser.data.userData.isAdmin === 0 ? (
           <Container>
-          <h1>Liste des utilisateurs</h1>
-          <div className="nonon">
-          {this.state.allUsers.map(user => (
-            <div className="non" md="3" key={user.id}>
-                <div className="card">
-                <ProfilePicture>
-                <ProfileImage
-                  src={this.state.currentUser.data.userData.attachment}
-                  alt=""
+            <ProfilePicture>
+              <ProfileImage
+                src={this.state.currentUser.data.userData.attachment}
+                alt=""
+              />
+            </ProfilePicture>
+            <FormGroup>
+              <FormInput type="file" onChange={this.fileChangedHandler} />
+            </FormGroup>
+            <FormCard onSubmit={this.uploadHandler}>
+              <FormGroup>
+                <FormLabel htmlFor="username">Changer votre pseudo</FormLabel>
+                <FormInput
+                  type="text"
+                  className="form-control"
+                  name="username"
+                  value={this.state.username}
+                  onChange={this.onChangeUsername}
                 />
-              </ProfilePicture>
-                    <p className="panpan1" key={user.username}>{user.username}</p>
-                    <p className="panpan" key={user.email}>{user.email}</p>
-                    <button className="btnbtn"
+              </FormGroup>
+              <FormGroup>
+                <FormLabel htmlFor="email">
+                  Changer votre adresse mail
+                </FormLabel>
+                <FormInput
+                  type="text"
+                  className="form-control"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.onChangeEmail}
+                />
+              </FormGroup>
+              <div>
+                <StyledButton disabled={this.state.loading}>
+                  {this.state.loading && <span className=""></span>}
+                  <span>Enregistrer les modifications</span>
+                </StyledButton>
+              </div>
+              <div>
+                <StyledButton onClick={this.deleteUser}>
+                  Supprimer votre compte
+                </StyledButton>
+              </div>
+            </FormCard>
+          </Container>
+        ) : (
+
+          <div className="ensemble">
+            <Container>
+              <h1>Liste des utilisateurs</h1>
+              <div className="nonon">
+                {this.state.allUsers.map((user) => (
+                  <div className="non" md="3" key={user.id}>
+                    <div className="card">
+                      <ProfilePicture>
+                        <ProfileImage
+                          src="../assets/"
+                          alt=""
+                        />
+                      </ProfilePicture>
+                      <p className="panpan1" key={user.username}>
+                        {user.username}
+                      </p>
+                      <p className="panpan" key={user.email}>
+                        {user.email}
+                      </p>
+                      <button
+                        className="btnbtn"
                         onClick={this.deleteUserById}
                         id={user.id}
                         label=""
-                    >Supprimer
-                    </button>
-                </div>
-            </div>
-          ))}
+                      >
+                        Supprimer
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Container>
           </div>
-          </Container>
-        </div>
-        }
+        )}
       </PageWrapper>
     );
   }

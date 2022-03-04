@@ -8,6 +8,8 @@ import "../App.css";
 import Logo from "../assets/icon-left-font-monochrome-white.png";
 import axios from "axios";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const PageWrapper = styled.div`
   z-index: 0;
@@ -127,7 +129,6 @@ const FormInput = styled.textarea`
   border: none;
   background-color: #f5f5f5;
   resize: none;
-
 `;
 
 const NoteBox = styled.div`
@@ -216,11 +217,6 @@ class Forum extends Component {
     e.preventDefault();
     const formData = new FormData();
 
-    formData.append("user_id", this.state.currentUser.data.userData.id)
-
-    if (this.state.title !== "") {
-      formData.append("title", this.state.title);
-    }
 
     if (this.state.content !== "") {
       formData.append("content", this.state.content);
@@ -281,7 +277,9 @@ class Forum extends Component {
                     onClick={this.deletePostById}
                     id={post.id}
                   >
-                    Supprimer
+                  <FontAwesomeIcon icon={faXmark} />
+                  <FontAwesomeIcon icon={faTrashAlt} />
+
                   </DeleteButtonStyled>
                   {/* <span className="userIdPost">{`${post.user_id}`}</span> */}
                   <PostTitleStyled>"{`${post.title}`}"</PostTitleStyled>
