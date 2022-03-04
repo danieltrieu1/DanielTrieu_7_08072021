@@ -33,6 +33,7 @@ const StyledLink = styled(Link)`
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  gap: 5px;
   color: white;
 `;
 

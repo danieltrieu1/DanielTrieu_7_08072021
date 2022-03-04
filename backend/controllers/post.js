@@ -174,19 +174,20 @@ exports.deletePost = (req, res) => {
     return res.json(400).json({ message: "Missing Parameter" });
   }
 
-  const filename = post.imageUrl.split("/images/")[1];
+  Post.findByPk(
+    postId
+  ).then(
+    (post) => {    
+      const filename = post.attachment.split("/images/")[1];
 
-  // fs.unlink: Permet la suppression du fichier
-  fs.unlink(`images/${filename}`, () => {
-    Post.deleteOne({ _id: req.params.id })
-      .then(() => res.status(200).json({ message: "Post supprimé !" }))
-      .catch((error) => res.status(400).json({ error }));
-  });
-
-  // Suppression du message
-  Post.destroy({ where: { id: postId }, force: true })
-    .then(() => res.status(204).json({ message: "Post Deleted" }))
-    .catch((error) =>
-      res.status(500).json({ message: "Database Error", error: error })
-    );
+      // fs.unlink: Permet la suppression du fichier
+      fs.unlink(`images/${filename}`, () => {
+        Post.destroy({ where: { id: postId }, force: true })
+        .then(() => res.status(204).json({ message: "Post Deleted" }))
+        .catch((error) =>
+          res.status(500).json({ message: "Database Error", error: error })
+        );
+      });
+    }
+  )
 };

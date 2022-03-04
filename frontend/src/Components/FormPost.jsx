@@ -179,7 +179,6 @@ class FormPost extends Component {
                 <FormLabel htmlFor="content">Contenu de la publication</FormLabel>
                 <FormArea
                     type="text"
-                    className="content"
                     value={this.state.content}
                     onChange={this.onChangeContent}
                 />

@@ -7,7 +7,7 @@ const User = db.user;
 // Ensemble des utilisateurs
 exports.getAllUsers = (req, res) => {
   User.findAll()
-    .then((users) => res.json({ data: users }))
+    .then((users) => res.json(users))
     .catch((error) =>
       res.status(500).json({ message: "Database Error", error: error })
     );

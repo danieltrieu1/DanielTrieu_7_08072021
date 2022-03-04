@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import AuthService from "../services/auth.service";
 import styled from "styled-components";
+import { Link } from 'react-router-dom'
 
 const PageWrapper = styled.div`
     z-index: 0;
@@ -78,6 +79,18 @@ const StyledButton = styled.button`
     width: 100%;
 `
 
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+    color: ;
+
+`
+
+
+
+
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -148,11 +161,11 @@ export default class Login extends Component {
                 disabled={this.state.loading}
               >
                 {this.state.loading && (
-                  <span className="spinner-border spinner-border-sm"></span>
+                  <span className=""></span>
                 )}
                 <span>Se connecter</span>
               </StyledButton>
-              <a href='/signup'>Vous n'avez pas de compte ?</a>
+              <StyledLink to='/signup'>Vous n'avez pas de compte ?</StyledLink>
             </FormGroup>
           </FormCard>
         </Container>

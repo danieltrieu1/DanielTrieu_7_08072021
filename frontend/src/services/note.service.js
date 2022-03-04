@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = "http://127.0.0.1:8080/notes/";
+const API_URL = "http://localhost:8080/notes/";
 
 class NoteService {
   getAllNotes() {
@@ -15,7 +15,12 @@ class NoteService {
       });
   }
 
-  deleteNote() {
+  createNote(content) {
+    return axios.put(API_URL + "note", {
+      content,
+    })}
+
+  deletePost() {
     localStorage.removeItem("note");
   }
 
