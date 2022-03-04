@@ -4,7 +4,7 @@ const Note = db.note
 // Ensemble des commentaires
 exports.getAllNotes = (req, res) => {
     Note.findAll()
-        .then( note => res.json({ data: note }))
+        .then((note) => res.json(note))
         .catch( error => res.status(500).json({ message: 'Database Error', error: error }))
 }
  

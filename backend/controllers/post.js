@@ -8,7 +8,7 @@ const fs = require("fs");
 // Ensemble des messages
 exports.getAllPosts = (req, res) => {
   Post.findAll({ include: Note })
-    .then((post) => res.json({ data: post }))
+    .then((post) => res.json(post))
     .catch((error) =>
       res.status(500).json({ message: "Database Error", error: error })
     );

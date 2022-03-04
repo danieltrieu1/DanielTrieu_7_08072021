@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import AuthService from "../services/auth.service";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faClose } from "@fortawesome/free-solid-svg-icons";
 
 const PageWrapper = styled.div`
   display: flex;
@@ -37,7 +37,7 @@ const FormCard = styled.form`
 const CardTitle = styled.h2`
   font-size: 30px;
   margin-top: 2rem;
-  margin-bottom: 2rem;
+  // margin-bottom: 2rem;
   display: flex;
   justify-content: center;
   font-weight: 500;
@@ -52,13 +52,13 @@ const FormGroup = styled.div`
 
 const ProfilePicture = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
+  margin: 1rem;
 `;
 
 const ProfileImage = styled.img`
   // border: solid 3px red;
-
   border-radius: 50%;
   width: 10rem;
   height: 10rem;
@@ -77,6 +77,14 @@ const StyledLink = styled(Link)`
   color: white;
   // width: 100%;
 `;
+
+const StyledLinkLogout = styled(Link)`
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  color: #260c69;
+`
+
 
 class Profile extends Component {
   constructor(props) {
@@ -131,10 +139,10 @@ class Profile extends Component {
               <StyledLink to={"/forum"}>Accèder aux publications</StyledLink>
             </FormGroup>
 
-            <Link to={"/login"} className="NavLink" onClick={this.handleLogout}>
+            <StyledLinkLogout className="LogoutBouton" onClick={this.handleLogout}>
               Se déconnecter
-              <FontAwesomeIcon icon={faClose} />
-            </Link>
+            </StyledLinkLogout>
+            
           </FormCard>
         </Container>
       </PageWrapper>

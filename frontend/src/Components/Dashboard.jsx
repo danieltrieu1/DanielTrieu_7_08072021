@@ -240,7 +240,50 @@ export default class Dashboard extends Component {
           </Container>
         ) : (
           <Container>
-            <h1>Salut Numero 2</h1>
+            <ProfilePicture>
+              <ProfileImage
+                src={this.state.currentUser.data.userData.attachment}
+                alt=""
+              />
+            </ProfilePicture>
+            <FormGroup>
+              <FormInput type="file" onChange={this.fileChangedHandler} />
+            </FormGroup>
+            <FormCard onSubmit={this.uploadHandler}>
+              <FormGroup>
+                <FormLabel htmlFor="username">Changer votre pseudo</FormLabel>
+                <FormInput
+                  type="text"
+                  className="form-control"
+                  name="username"
+                  value={this.state.username}
+                  onChange={this.onChangeUsername}
+                />
+              </FormGroup>
+              <FormGroup>
+                <FormLabel htmlFor="email">
+                  Changer votre adresse mail
+                </FormLabel>
+                <FormInput
+                  type="text"
+                  className="form-control"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.onChangeEmail}
+                />
+              </FormGroup>
+              <div>
+                <StyledButton disabled={this.state.loading}>
+                  {this.state.loading && <span className=""></span>}
+                  <span>Enregistrer les modifications</span>
+                </StyledButton>
+              </div>
+              <div>
+                <StyledButton onClick={this.deleteUser}>
+                  Supprimer votre compte
+                </StyledButton>
+              </div>
+            </FormCard>
           </Container>
         )}
       </PageWrapper>

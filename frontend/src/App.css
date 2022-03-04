@@ -24,62 +24,30 @@ body {
 
 p {
     visibility: hidden;
-}
-
-.homeBox {
-    background-image: url('./assets/kisspng-merguez-sausage-moroccan-cuisine-lamb-and-mutton-c-andiamo-pizza-combs-la-villa-livre-des-pizzas-c-5baceeb24c9f66.3907973315380599543139_1024x1024.png');
-    height: 30rem;
+    position: absolute;
 }
 
 /* ------------------------------------------------------------------------------- */
 
-.postBox {
+.LogoForum {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 1rem;
+    justify-content: center;
+    object-fit: cover;
+    width: 11rem;
+    height: 3rem;
+    color:#690e0c
+}
+
+.bite {
+    /* position: absolute; */
     border: solid 2px red;
-    padding: 2rem;
-    background-color: pink ;
-    border-radius: 1rem;
-}
-
-.post {
-    border: solid 2px green;
-    padding: 1rem;
-    border-radius: 1rem;
-}
-
-.noteBox {
-    border: solid 2px blue;
-    border-radius: 1rem;
-    padding: 1rem;
-    background-color: yellow;
-}
-
-.allNotes {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: solid 2px red;
-    border-bottom-left-radius:1rem;
-    border-bottom-right-radius:1rem;
-    padding: 1rem;
-}
-
-.note {
-    display: flex;
-    flex-direction: column;
-
-    border: solid 2px blue;
-    padding: 1rem;
-}
-
-.noteInput {
     padding: 10px;
 }
 
-.handleNote {
-    display: flex;
-    flex-direction: column;
+.biteInput {
+    /* border: none; */
+    border: solid 2px red;
+    border-radius: 4px;
+    padding: 10px;
+
 }

@@ -62,11 +62,21 @@ const FormLabel = styled.label`
 `
 
 const FormInput = styled.input`
-    z-index: 1;
-    opacity: 1;
+    // z-index: 1;
+    // opacity: 1;
     border: none;
     padding: 10px;
     border-radius: 4px;
+`
+
+const FormArea = styled.textarea`
+    
+    // z-index: 1;
+    // opacity: 1;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    height: 8rem;
 `
 
 const StyledButton = styled.button`
@@ -167,7 +177,7 @@ class FormPost extends Component {
 
                 <FormGroup>
                 <FormLabel htmlFor="content">Contenu de la publication</FormLabel>
-                <FormInput
+                <FormArea
                     type="text"
                     className="content"
                     value={this.state.content}
