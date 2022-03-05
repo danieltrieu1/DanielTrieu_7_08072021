@@ -18,7 +18,7 @@ Connectez-vous à MySQL : ```mysql -u root -p``` </br>
 Tapez votre mot de passe : ```******``` </br>
 Créez la base de données : ```CREATE DATABASE database_development;``` </br>
 Utilisez la base de données créée : ```USE database_development;``` </br>
-Importez le fichier groupomania_database.sql : ```SOURCE groupomania_database.sql;``` </br>
+Importez le fichier database_development.sql : ```SOURCE database_development.sql;``` </br>
 
 <h2>Installation et démarrage du Backend</h2> </br>
 <strong>Ouvrez un terminal</strong> </br>
