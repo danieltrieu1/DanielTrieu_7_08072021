@@ -86,7 +86,7 @@ const StyledLink = styled(Link)`
     display: flex;
     justify-content: center;
     margin: 1rem;
-    color: ;
+    color: rgb(13, 32, 89);
 `
 
 
@@ -141,7 +141,7 @@ export default class Login extends Component {
             onSubmit={this.handleLogin}
           >
             <FormGroup>
-              <FormLabel htmlFor="username">Username</FormLabel>
+              <FormLabel htmlFor="username">Votre pseudo</FormLabel>
               <FormInput
                 type="text"
                 className="form-control"
@@ -151,7 +151,7 @@ export default class Login extends Component {
               />
             </FormGroup>
             <FormGroup>
-              <FormLabel htmlFor="password">Password</FormLabel>
+              <FormLabel htmlFor="password">Votre mot de passe</FormLabel>
               <FormInput
                 type="password"
                 className="form-control"

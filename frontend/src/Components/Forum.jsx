@@ -236,7 +236,6 @@ const FormLabel = styled.label`
 class Forum extends Component {
   constructor(props) {
     postService.getAllPosts();
-
     authService.getCurrentUser();
     super(props);
 
@@ -321,6 +320,9 @@ class Forum extends Component {
   render() {
     return (
       <PageWrapper>
+      
+      {/* {this.state.content.allPosts === "" ? ( */}
+
         <PostContainerStyled>
           <header>
             <LogoPage src={Logo} alt="Logo Groupomania" />
@@ -381,6 +383,7 @@ class Forum extends Component {
             ))}
           </PostBoxStyled>
         </PostContainerStyled>
+      {/* ) :  null } */}
       </PageWrapper>
     );
   }

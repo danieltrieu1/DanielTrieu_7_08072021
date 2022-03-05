@@ -299,7 +299,6 @@ export default class Dashboard extends Component {
             </FormCard>
           </Container>
         ) : (
-          // this.state.getAllUsers.filter(role => role.isAdmin = 1 && !role.isAdmin === 0 ) (
 
           <AdminWrapper>
             <Container>

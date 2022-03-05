@@ -83,7 +83,7 @@ const StyledLink = styled(Link)`
     display: flex;
     justify-content: center;
     margin: 1rem;
-    color: ;
+    color: rgb(13, 32, 89);
 `
 
 // const ProfilePicture = styled.div`
@@ -160,7 +160,7 @@ export default class Register extends Component {
             {!this.state.successful && (
               <div>
                 <FormGroup>
-                  <FormLabel htmlFor="username">Username</FormLabel>
+                  <FormLabel htmlFor="username">Votre pseudo</FormLabel>
                   <FormInput
                     type="text"
                     className="form-control"
@@ -170,7 +170,7 @@ export default class Register extends Component {
                   />
                 </FormGroup>
                 <FormGroup>
-                  <FormLabel htmlFor="email">Email</FormLabel>
+                  <FormLabel htmlFor="email">Votre adresse électronique</FormLabel>
                   <FormInput
                     type="text"
                     className="form-control"
@@ -180,7 +180,7 @@ export default class Register extends Component {
                   />
                 </FormGroup>
                 <FormGroup>
-                  <FormLabel htmlFor="password">Password</FormLabel>
+                  <FormLabel htmlFor="password">Votre mot de passe</FormLabel>
                   <FormInput
                     type="password"
                     className="form-control"
