@@ -134,12 +134,12 @@ class Profile extends Component {
             </p> */}
 
             <FormGroup>
-              <StyledLink to={"/dashboard"}>Modifier mon profil</StyledLink>
-              <StyledLink to={"/formpost"}>Publier un message</StyledLink>
-              <StyledLink to={"/forum"}>Accèder aux publications</StyledLink>
+              <StyledLink to={"/dashboard"}>Accéder à mon Dashboard</StyledLink>
+              <StyledLink to={"/formpost"}>Rédiger une Publication</StyledLink>
+              <StyledLink to={"/forum"}>Accèder au Forum</StyledLink>
             </FormGroup>
 
-            <StyledLinkLogout className="LogoutBouton" onClick={this.handleLogout}>
+            <StyledLinkLogout to={"/login"} onClick={this.handleLogout}>
               Se déconnecter
             </StyledLinkLogout>
             

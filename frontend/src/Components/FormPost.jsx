@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import authHeader from "../services/auth-header";
+import AuthHeader from "../services/auth-header";
 import AuthService from "../services/auth.service"
 import styled from "styled-components";
+import PostService from "../services/post.service";
 
 const PageWrapper = styled.div`
     z-index: 0;
@@ -147,9 +148,10 @@ class FormPost extends Component {
       .put(
         "http://127.0.0.1:8080/posts/",
         formData,
-        { headers: authHeader() }
+        { headers: AuthHeader() }
       )
       .then((response) => {
+        PostService.getAllPosts()
         this.props.history.push("/forum");
         window.location.reload();
       })

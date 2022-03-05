@@ -9,7 +9,7 @@ import Logo from "../assets/icon-left-font-monochrome-white.png";
 import axios from "axios";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane, faTrashAlt, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faClose, faPaperPlane, faTrashAlt, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const PageWrapper = styled.div`
   z-index: 0;
@@ -64,8 +64,8 @@ const AttachmentStyled = styled.img`
   object-fit: cover;
   max-width: 100%;
   height: auto;
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
+  border-radius: 5px;
+
 `;
 
 const LogoPage = styled.img`
@@ -79,6 +79,28 @@ const LogoPage = styled.img`
 `
 
 const DeleteButtonStyled = styled.button`
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  float: right;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  padding: 10px;
+  border-radius: 10rem;
+  transition: all 0.4s ease;
+  color: grey;
+
+  &:hover {
+    box-shadow: 0px 0px 10px -5px lightgrey;
+    transition: all 0.4s ease-in-out;
+    background-color: rgb(255, 87, 54);
+    color: white;
+  }
+`;
+
+const DeleteNoteButtonStyled = styled.button`
   cursor: pointer;
   position: relative;
   display: inline-block;
@@ -158,10 +180,26 @@ const FormInput = styled.textarea`
 `;
 
 const NoteBox = styled.div`
-  border: solid 2px red;
-  height: fit-content;
+  display: flex;
+  flex-direction: column-reverse;
+  // border: solid 2px red;
+  min-height: 5rem;
   padding: 10px;
+  gap: 10px;
+  max-height: 8rem;
+  overflow-y: scroll;
+  background-color: #f5f5f5;
+  // background-color: lightblue;
 `;
+
+const NoteArea = styled.div`
+  color: rgb(54, 54, 54);
+  border-radius: 5px;
+  background-color: #e5e5e5;
+  // border: solid 3px red;
+  padding: 1rem;
+  // margin: 1rem;
+`
 
 const FormCard = styled.form`
   display: flex;
@@ -204,8 +242,6 @@ const FormLabel = styled.label`
 class Forum extends Component {
   constructor(props) {
     postService.getAllPosts();
-    noteService.getAllNotes();
-    noteService.createNote();
 
     authService.getCurrentUser();
 
@@ -215,21 +251,17 @@ class Forum extends Component {
 
     this.deletePostById = this.deletePostById.bind(this);
     this.deleteNoteById = this.deleteNoteById.bind(this);
-
     this.onChangeContent = this.onChangeContent.bind(this);
     this.uploadHandler = this.uploadHandler.bind(this);
+    this.onChangeTitle = this.onChangeTitle.bind(this);
 
     this.state = {
       currentUser: authService.getCurrentUser(),
-
       content: "",
-      // postValue: "",
-      noteValue: "",
-
       allPosts: posts,
-
       loading: false,
     };
+    console.log(this.state.allPosts)
   }
 
   onChangeTitle(e) {
@@ -240,28 +272,25 @@ class Forum extends Component {
   }
 
   uploadHandler(e) {
-    e.preventDefault();
-    const formData = new FormData();
-
-    if (this.state.content !== "") {
-      formData.append("content", this.state.content);
+    const Content = {
+      content: this.state.content,
+      user_id: this.state.currentUser.data.userData.id,
+      PostId: e.currentTarget.id
     }
 
     axios
-      .put("http://127.0.0.1:8080/notes/", formData, { headers: authHeader() })
-      .then((response) => {
-        this.props.history.push("/forum");
-        window.location.reload();
+      .put("http://127.0.0.1:8080/notes/", Content, { headers: authHeader() })
+      .then(() => {
+        postService.getAllPosts()
+        window.location.reload()
       })
 
       .catch((error) => console.log(error));
   }
 
   deletePostById(e) {
-    e.preventDefault();
-    // console.log(e.target.id);
     axios
-      .delete(`http://127.0.0.1:8080/posts/${e.target.id}`, {
+      .delete(`http://127.0.0.1:8080/posts/${e.currentTarget.id}`, {
         headers: authHeader(),
       })
       .then(() => {
@@ -273,7 +302,7 @@ class Forum extends Component {
   deleteNoteById(e) {
     e.preventDefault();
     axios
-      .delete(`http://127.0.0.1:8080/notes/${e.target.id}`, {
+      .delete(`http://127.0.0.1:8080/notes/${e.currentTarget.id}`, {
         headers: authHeader(),
       })
       .then(() => {
@@ -303,15 +332,22 @@ class Forum extends Component {
                   <PostTitleStyled>"{`${post.title}`}"</PostTitleStyled>
                   <PostTextStyled>{`${post.content}`}</PostTextStyled>
                   <AttachmentStyled src={`${post.attachment}`} alt="" />
-
                   <NoteBox>
-                    {/* {this.state.allPosts.note.map((note) => (
-                      <div key={note.content}></div>
-                    ))} */}
+                    {post.Notes.map((note) => (
+                      <NoteArea key={note.content}>
+                        {note.content}
+                        <DeleteNoteButtonStyled
+                          onClick={this.deleteNoteById}
+                          id={note.id}
+                        >
+                          <FontAwesomeIcon icon={faClose} />
+                        </DeleteNoteButtonStyled>
+                      </NoteArea>
+                    ))}
                   </NoteBox>
                 </ContentPostStyled>
 
-                <FormCard onSubmit={this.uploadHandler}>
+                <FormCard>
                   <FormGroup>
                     <FormLabel htmlFor="content"></FormLabel>
                     <FormInput
@@ -320,7 +356,11 @@ class Forum extends Component {
                       placeholder="Écrire un commentaire ..."
                       onChange={this.onChangeContent}
                     />
-                    <ButtonStyled disabled={this.state.loading}>
+                    <ButtonStyled
+                      id={post.id}
+                      onClick={this.uploadHandler}
+                      disabled={this.state.loading}
+                    >
                       {this.state.loading && <span className=""></span>}
                       <span>Envoyer</span>
                     </ButtonStyled>

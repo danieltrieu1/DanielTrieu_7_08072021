@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEye,
   faPaperPlane,
+  faPowerOff,
+  faSignIn,
   faSignOut,
   faUserCircle,
   faUserEdit,
@@ -44,6 +46,7 @@ const StyledLink = styled(Link)`
   gap: 5px;
   color: white;
   @media (max-width: 1200px) {
+    gap: 0;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -80,7 +83,7 @@ const NavLogo = styled.img`
   width: 170px;
   margin-right: 1rem;
   margin-left: 10px;
-  @media (max-width: 1200px) {
+  @media (max-width: 500px) {
     display: none;  
     visibility: hidden;
   }
@@ -114,11 +117,13 @@ class NavBar extends Component {
           {!this.state.currentUser ? (
             <StyledLink to={"/login"} className="NavLink">
               <LinkArea>Se connecter</LinkArea>
+              <FontAwesomeIcon icon={faPowerOff} display="none" />
             </StyledLink>) : null }
 
           {!this.state.currentUser ? (
             <StyledLink to={"/signup"} className="NavLink">
               <LinkArea>S'inscrire</LinkArea>
+              <FontAwesomeIcon icon={faSignIn} display="none" />
             </StyledLink>) : null }
 
             {this.state.currentUser ? (

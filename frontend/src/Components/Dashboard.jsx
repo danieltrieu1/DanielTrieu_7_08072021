@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import authHeader from "../services/auth-header";
-import authService from "../services/auth.service";
 import userService from "../services/user.service";
+import authService from "../services/auth.service";
 import styled from "styled-components";
 import "../App.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -87,6 +87,7 @@ const UserCard = styled.div`
 `;
 
 const CardContent = styled.div`
+  max-width: 12rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -142,7 +143,6 @@ const ProfileImage = styled.img`
 export default class Dashboard extends Component {
   constructor(props) {
     userService.getAllUsers();
-
     let users = JSON.parse(localStorage.getItem("allUsers"));
 
     super(props);
@@ -202,12 +202,12 @@ export default class Dashboard extends Component {
 
   deleteUserById(e) {
     axios
-      .delete(`http://127.0.0.1:8080/users/${e.target.id}`, {
+      .delete(`http://127.0.0.1:8080/users/${e.currentTarget.id}`, {
         headers: authHeader(),
       })
       .then(() => {
         userService.getAllUsers();
-        window.location.reload();
+        window.location.reload()
       });
   }
 

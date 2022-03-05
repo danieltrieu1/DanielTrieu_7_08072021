@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AuthService from "../services/auth.service";
 import styled from "styled-components";
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const PageWrapper = styled.div`
   z-index: 0;
@@ -77,6 +77,14 @@ const StyledButton = styled.button`
   color: white;
   width: 100%;
 `;
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+    color: ;
+`
 
 // const ProfilePicture = styled.div`
 //   display: flex;
@@ -185,7 +193,7 @@ export default class Register extends Component {
                   <StyledButton>S'inscrire</StyledButton>
                 </FormGroup>
                 <FormGroup>
-                  <a href="/login">Vous avez déjà un compte ?</a>
+                  <StyledLink to='/login'>Vous avez déjà un compte ?</StyledLink>
                 </FormGroup>
               </div>
             )}
