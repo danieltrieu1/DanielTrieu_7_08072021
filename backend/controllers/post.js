@@ -76,8 +76,8 @@ exports.createPost = async (req, res) => {
   } else {
 
     try {
-      // Vérification si le message existe
-      let post = await Post.findOne({ where: { title: title }, raw: true });
+      // // Vérification si le message existe
+      // let post = await Post.findOne({ where: { title: title }, raw: true });
   
       // Création du message
       let newPost = {

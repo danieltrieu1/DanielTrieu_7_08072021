@@ -119,7 +119,7 @@ class Profile extends Component {
                 />
               </ProfilePicture>
             </header>
-            <p>
+            {/* <p>
               <strong>Token:</strong>{" "}
               {currentUser.data.accessToken.substring(0, 20)} ...{" "}
               {currentUser.data.accessToken.substr(
@@ -131,7 +131,7 @@ class Profile extends Component {
             </p>
             <p>
               <strong>Email:</strong> {currentUser.data.userData.email}
-            </p>
+            </p> */}
 
             <FormGroup>
               <StyledLink to={"/dashboard"}>Modifier mon profil</StyledLink>

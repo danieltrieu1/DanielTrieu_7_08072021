@@ -53,7 +53,7 @@ exports.getNote = async (req, res) => {
 
 // Création du commentaire
 exports.createNote = async (req, res) => {
-    const { user_id, title, content } = req.body
+    const { user_id, content } = req.body
 
     // Validation des données reçues
     if (!user_id || !content) {
@@ -62,20 +62,20 @@ exports.createNote = async (req, res) => {
 
     try{
         // Vérification si le commentaire existe
-        let note = await Note.findOne({ where: { title: title }, raw: true })
+        let note = await Note.findOne({ where: { content: content }, raw: true })
 
         let newNote = {
-            title: req.body.title,
+            // title: req.body.title,
             content: req.body.content,
             user_id: req.body.user_id,
             postId: req.body.postId,
-            attachment: `${req.protocol}://${req.get("host")}/images/${
-              req.file.filename
-            }`,
+            // attachment: `${req.protocol}://${req.get("host")}/images/${
+            //   req.file.filename
+            // }`,
           };
       
         if (note !== null) {
-            return res.status(409).json({ message: `The note ${title} already exists !` })
+            return res.status(409).json({ message: `The note note already exists !` })
         }
 
         // Création du commentaire

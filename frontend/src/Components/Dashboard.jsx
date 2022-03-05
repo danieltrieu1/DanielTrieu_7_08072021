@@ -21,7 +21,7 @@ const PageWrapper = styled.div`
 
 const AdminWrapper = styled.div`
   width: 100%;
-`
+`;
 
 const Container = styled.div`
   display: flex;
@@ -68,7 +68,6 @@ const FormInput = styled.input`
   border-radius: 4px;
 `;
 
-
 const StyledButton = styled.button`
   cursor: pointer;
   border: none;
@@ -81,33 +80,31 @@ const StyledButton = styled.button`
 `;
 
 const UserCard = styled.div`
-padding: 1rem;
-    gap: 2rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-`
+  padding: 1rem;
+  gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+`;
 
 const CardContent = styled.div`
-display: flex;
-justify-content: center;
-flex-direction: column;
-align-items: center;
-gap: 8px;
-background-color: white;
-padding: 1rem;
-border-radius: 2rem;
-box-shadow: 0px 0px 20px -5px lightgrey;
-
-`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 2rem;
+  box-shadow: 0px 0px 20px -5px lightgrey;
+`;
 
 const UserInsert = styled.span`
-font-size: 20px;
-display: flex;
-font-weight: 700;
-justify-content: center;
-color: rgb(255, 87, 54);
-
-`
+  font-size: 20px;
+  display: flex;
+  font-weight: 700;
+  justify-content: center;
+  color: rgb(255, 87, 54);
+`;
 
 const DeleteButtonStyled = styled.button`
   cursor: pointer;
@@ -137,7 +134,7 @@ const ProfilePicture = styled.div`
 
 const ProfileImage = styled.img`
   // border: solid 3px red;
-    border-radius: 50%;
+  border-radius: 50%;
   width: 10rem;
   height: 10rem;
 `;
@@ -165,18 +162,17 @@ export default class Dashboard extends Component {
     };
   }
 
-
   // getAllUsers() {
   //   if(!this.getCurrentUser) {
   //     return this.users.filter(role => role.isAdmin === 1 && !role.isAdmin === 0)
-  //   } 
+  //   }
 
-    //   if(!this.catchUser) {
-    //     return this.users.filter(element => element.Roles[1] && !element.Roles[2]);
-    //   } else if(this.catchUser) {
-    //     return this.users.filter(element => element.pseudo == this.searchUser && element.Roles[1] && !element.Roles[2])
-    //   }
-    // },
+  //   if(!this.catchUser) {
+  //     return this.users.filter(element => element.Roles[1] && !element.Roles[2]);
+  //   } else if(this.catchUser) {
+  //     return this.users.filter(element => element.pseudo == this.searchUser && element.Roles[1] && !element.Roles[2])
+  //   }
+  // },
 
   onChangeUsername(e) {
     this.setState({ username: e.target.value });
@@ -253,7 +249,6 @@ export default class Dashboard extends Component {
   }
   render() {
     return (
-
       <PageWrapper>
         {this.state.currentUser.data.userData.isAdmin === 0 ? (
           <Container>
@@ -303,8 +298,7 @@ export default class Dashboard extends Component {
             </FormCard>
           </Container>
         ) : (
-
-        // this.state.getAllUsers.filter(role => role.isAdmin = 1 && !role.isAdmin === 0 ) (
+          // this.state.getAllUsers.filter(role => role.isAdmin = 1 && !role.isAdmin === 0 ) (
 
           <AdminWrapper>
             <Container>
@@ -315,14 +309,15 @@ export default class Dashboard extends Component {
                   <div className="" md="3" key={user.id}>
                     <CardContent>
                       <ProfilePicture>
-                        <ProfileImage src="./assets/icone-utilisateur-gris.png" alt=""/>
+                        <ProfileImage
+                          src="./assets/icone-utilisateur-gris.png"
+                          alt=""
+                        />
                       </ProfilePicture>
                       <UserInsert key={user.username}>
                         {user.username}
                       </UserInsert>
-                      <UserInsert key={user.email}>
-                        {user.email}
-                      </UserInsert>
+                      <UserInsert key={user.email}>{user.email}</UserInsert>
                       <DeleteButtonStyled
                         onClick={this.deleteUserById}
                         id={user.id}
@@ -331,7 +326,7 @@ export default class Dashboard extends Component {
                         <FontAwesomeIcon icon={faTrashAlt} />
                       </DeleteButtonStyled>
                     </CardContent>
-                  </div> 
+                  </div>
                 ))}
               </UserCard>
             </Container>
