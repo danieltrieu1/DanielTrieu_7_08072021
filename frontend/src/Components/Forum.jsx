@@ -11,6 +11,22 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose, faPaperPlane, faTrashAlt, faXmark } from "@fortawesome/free-solid-svg-icons";
 
+const DeleteNoteButtonStyled = styled.button`
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  float: right;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  padding: 10px;
+  border-radius: 10rem;
+  transition: all 0.4s ease;
+  color: grey;
+  `;
+
+
 const PageWrapper = styled.div`
   z-index: 0;
   display: flex;
@@ -64,8 +80,8 @@ const AttachmentStyled = styled.img`
   object-fit: cover;
   max-width: 100%;
   height: auto;
-  border-radius: 5px;
-
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
 `;
 
 const LogoPage = styled.img`
@@ -79,28 +95,6 @@ const LogoPage = styled.img`
 `
 
 const DeleteButtonStyled = styled.button`
-  cursor: pointer;
-  position: relative;
-  display: inline-block;
-  float: right;
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  padding: 10px;
-  border-radius: 10rem;
-  transition: all 0.4s ease;
-  color: grey;
-
-  &:hover {
-    box-shadow: 0px 0px 10px -5px lightgrey;
-    transition: all 0.4s ease-in-out;
-    background-color: rgb(255, 87, 54);
-    color: white;
-  }
-`;
-
-const DeleteNoteButtonStyled = styled.button`
   cursor: pointer;
   position: relative;
   display: inline-block;
@@ -199,7 +193,7 @@ const NoteArea = styled.div`
   // border: solid 3px red;
   padding: 1rem;
   // margin: 1rem;
-`
+`;
 
 const FormCard = styled.form`
   display: flex;
@@ -244,9 +238,6 @@ class Forum extends Component {
     postService.getAllPosts();
 
     authService.getCurrentUser();
-
-    let posts = JSON.parse(localStorage.getItem("posts"));
-
     super(props);
 
     this.deletePostById = this.deletePostById.bind(this);
@@ -258,7 +249,7 @@ class Forum extends Component {
     this.state = {
       currentUser: authService.getCurrentUser(),
       content: "",
-      allPosts: posts,
+      allPosts: JSON.parse(localStorage.getItem("posts")),
       loading: false,
     };
     console.log(this.state.allPosts)
@@ -272,6 +263,7 @@ class Forum extends Component {
   }
 
   uploadHandler(e) {
+    e.preventDefault()
     const Content = {
       content: this.state.content,
       user_id: this.state.currentUser.data.userData.id,
@@ -281,8 +273,13 @@ class Forum extends Component {
     axios
       .put("http://127.0.0.1:8080/notes/", Content, { headers: authHeader() })
       .then(() => {
-        postService.getAllPosts()
-        window.location.reload()
+        axios.get("http://127.0.0.1:8080/posts/", {
+          headers: authHeader()
+        })
+        .then(response => {
+            localStorage.setItem("posts", JSON.stringify(response.data));
+            this.setState({ allPosts: JSON.parse(localStorage.getItem("posts")) });
+        });
       })
 
       .catch((error) => console.log(error));
@@ -294,8 +291,13 @@ class Forum extends Component {
         headers: authHeader(),
       })
       .then(() => {
-        postService.getAllPosts();
-        window.location.reload();
+        axios.get("http://127.0.0.1:8080/posts/", {
+          headers: authHeader()
+        })
+        .then(response => {
+            localStorage.setItem("posts", JSON.stringify(response.data));
+            this.setState({ allPosts: JSON.parse(localStorage.getItem("posts")) });
+        });
       });
   }
 
@@ -306,8 +308,13 @@ class Forum extends Component {
         headers: authHeader(),
       })
       .then(() => {
-        noteService.getAllNotes();
-        window.location.reload();
+        axios.get("http://127.0.0.1:8080/posts/", {
+          headers: authHeader()
+        })
+        .then(response => {
+            localStorage.setItem("posts", JSON.stringify(response.data));
+            this.setState({ allPosts: JSON.parse(localStorage.getItem("posts")) });
+        });
       });
   }
 
@@ -322,35 +329,38 @@ class Forum extends Component {
             {this.state.allPosts.map((post) => (
               <PostCardStyled key={post.content}>
                 <ContentPostStyled>
-                  <DeleteButtonStyled
-                    onClick={this.deletePostById}
-                    id={post.id}
-                  >
+                <DeleteButtonStyled
+                        onClick={this.deletePostById}
+                        id = {post.id}
+                      >
                     <FontAwesomeIcon icon={faTrashAlt} />
                   </DeleteButtonStyled>
                   {/* <span className="userIdPost">{`${post.user_id}`}</span> */}
                   <PostTitleStyled>"{`${post.title}`}"</PostTitleStyled>
                   <PostTextStyled>{`${post.content}`}</PostTextStyled>
                   <AttachmentStyled src={`${post.attachment}`} alt="" />
+
                   <NoteBox>
-                    {post.Notes.map((note) => (
-                      <NoteArea key={note.content}>
-                        {note.content}
-                        <DeleteNoteButtonStyled
-                          onClick={this.deleteNoteById}
-                          id={note.id}
-                        >
-                          <FontAwesomeIcon icon={faClose} />
-                        </DeleteNoteButtonStyled>
-                      </NoteArea>
-                    ))}
-                  </NoteBox>
+                     {post.Notes.map((note) => (
+                       <NoteArea key={note.id}>
+                         {note.content}
+                         <DeleteNoteButtonStyled
+                           onClick={this.deleteNoteById}
+                           id={note.id}
+                         >
+                           <FontAwesomeIcon icon={faClose} />
+                         </DeleteNoteButtonStyled>
+                       </NoteArea>
+                     ))}
+                   </NoteBox>
+
                 </ContentPostStyled>
 
+
                 <FormCard>
-                  <FormGroup>
-                    <FormLabel htmlFor="content"></FormLabel>
-                    <FormInput
+                   <FormGroup>
+                     <FormLabel htmlFor="content"></FormLabel>
+                     <FormInput
                       type="text"
                       value={this.state.content}
                       placeholder="Écrire un commentaire ..."
@@ -366,6 +376,7 @@ class Forum extends Component {
                     </ButtonStyled>
                   </FormGroup>
                 </FormCard>
+                
               </PostCardStyled>
             ))}
           </PostBoxStyled>

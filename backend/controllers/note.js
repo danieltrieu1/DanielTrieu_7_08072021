@@ -81,7 +81,9 @@ exports.createNote = async (req, res) => {
         // Création du commentaire
         // note = await 
         Note.create(newNote)
-        return res.json({ message: 'Note Created', data: note })
+        .then(() => {
+            return res.json({ message: 'Note Created' })
+        }) 
     } catch (error) {
         return res.status(500).json({ message: 'Database Error', error: error })
     }
