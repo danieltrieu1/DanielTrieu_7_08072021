@@ -38,25 +38,11 @@ exports.getPost = async (req, res) => {
     return res.status(500).json({ message: "Database Error", error: error });
   }
 
-  //--------------------------------------------------------------------------------------
-  // CODE PAS FACTORISÉ CORRECTEMENT
-  // // Récupération du message
-  // Post.findOne({ where: {id: postId, raw: true} })
-  //     .then(post => {
-  //         if (post === null) {
-  //             return res.status(404).json({ message : 'This post does not exit !' })
-  //         }
-
-  //         // Message trouvé
-  //         return res.json({ data: post })
-  //     })
-  //     .catch(error => res.status(500).json({ message: 'Database Error', error: error }))
-  //---------------------------------------------------------------------------------------
 };
 
 // Création du message
 exports.createPost = async (req, res) => {
-  const { user_id, title, content } = req.body;
+  const { user_id, title, content, attachment } = req.body;
   console.log(req.body);
 
   // Validation des données reçues
@@ -64,48 +50,52 @@ exports.createPost = async (req, res) => {
     return res.status(400).json({ message: "Missing Data" });
   }
 
-  try {
-    // Vérification si le message existe
-    let post = await Post.findOne({ where: { title: title }, raw: true });
+  if (attachment) {
+    
+    try {
+      // Vérification si le message existe
+      let post = await Post.findOne({ where: { title: title }, raw: true });
+  
+      // Création du message
+      let newPost = {
+        title: req.body.title,
+        content: req.body.content,
+        user_id: req.body.user_id,
+        attachment: `${req.protocol}://${req.get("host")}/images/${
+          req.file.filename
+        }`,
+      };
+  
+      post = await Post.create(newPost);
+      return res.json({ message: "Post Created", data: post });
+      
+    } catch (error) {
+      return res.status(500).json({ message: "Database Error", error: error });
+    }
 
-    //Test si résultat null
-    // if (post !== null) {
-    //     return res.status(409).json({ message: `The message ${title} already exists !` })
-    // }
+  } else {
 
-    // Création du message
-    let newPost = {
-      title: req.body.title,
-      content: req.body.content,
-      user_id: req.body.user_id,
-      attachment: `${req.protocol}://${req.get("host")}/images/${
-        req.file.filename
-      }`,
-    };
+    try {
+      // Vérification si le message existe
+      let post = await Post.findOne({ where: { title: title }, raw: true });
+  
+      // Création du message
+      let newPost = {
+        title: req.body.title,
+        content: req.body.content,
+        user_id: req.body.user_id,
+      };
+  
+      post = await Post.create(newPost);
+      return res.json({ message: "Post Created", data: post });
+      
+    } catch (error) {
+      return res.status(500).json({ message: "Database Error", error: error });
+    }
 
-    post = await Post.create(newPost);
-    return res.json({ message: "Post Created", data: post });
-  } catch (error) {
-    return res.status(500).json({ message: "Database Error", error: error });
   }
+
 };
-
-//-----------------------------------------------------------------------
-// CODE NON FACTORISE CORRECTEMENT
-// Post.findOne({ where: { user_id: user_id} && { title: title } && { content: content }, raw: true})
-//     .then(post => {
-//         // Vérification de l'existence de l'utilisateur
-//         if (post !== null) {
-//             return res.status(400).json({ message: `This message already exists !`})
-//         }
-
-//                 // Création du message
-//                 Post.create(req.body)
-//                     .then(post => res.json({ message: 'Post Created', data: post }))
-//                     .catch(error => res.status(500).json({ message: 'Database Error', error: error }))
-//             })
-//     .catch(error => res.status(500).json({ message: 'Database Error', error: error }))
-//-----------------------------------------------------------------------
 
 // Modification du message
 exports.updatePost = async (req, res) => {

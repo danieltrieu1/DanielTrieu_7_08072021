@@ -56,7 +56,7 @@ exports.createNote = async (req, res) => {
     const { user_id, title, content } = req.body
 
     // Validation des données reçues
-    if (!user_id || !title || !content) {
+    if (!user_id || !content) {
         return res.status(400).json({ message: 'Missing Data' })
     }
 

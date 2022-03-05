@@ -19,77 +19,13 @@ body {
     flex-direction: column;
     justify-content: center; 
     background-size: cover;
-    background: url('./assets/aq.jpeg') no-repeat;
+    /* background: url('./assets/aq.jpeg') no-repeat; */
     position: relative;
 }
 
-/* p {
-    visibility: hidden;
-    position: absolute;
-} */
-
 /* ------------------------------------------------------------------------------- */
 
-.LogoForum {
-    display: flex;
-    justify-content: center;
-    object-fit: cover;
-    width: 11rem;
-    height: 3rem;
-    color:#d5d5d5
-}
 
-.nonon {
-    /* border: solid 2px green; */
-    padding: 1rem;
-    gap: 2rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); /* breakpoint auto */
-    
-}
 
-.card {
-    /* border: solid 2px red; */
-    /* box-shadow: 0px 0px 20px -10px black; */
-    background-color: rgba(255,204,124,1) ;
-    padding: 1rem;
-    border-radius: 2rem;
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center; */
-    /* gap: 10px; */
 
-}
 
-.btnbtn {
-    margin: 1rem;
-    border: none;
-    padding: 10px;
-    border-radius: 3px;
-}
-
-.panpan {
-    display: flex;
-    justify-content: center;
-}
-.panpan1 {
-    font-size: 20px;
-    display: flex;
-    font-weight: 700;
-    justify-content: center;
-    color: rgb(255, 87, 54);
-}
-
-.ensemble {
-
-    /* justify-content: center; */
-    /* flex-wrap: row wrap; */
-    /* background-color: pink; */
-    width: 100%;
-    /* gap: 2rem; */
-    /* height: auto; */
-}
-
-.non {
-    display: flex;
-}

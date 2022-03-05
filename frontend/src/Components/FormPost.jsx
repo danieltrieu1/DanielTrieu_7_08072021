@@ -76,6 +76,7 @@ const FormArea = styled.textarea`
     border: none;
     padding: 10px;
     border-radius: 4px;
+    resize: none;
     height: 8rem;
 `
 

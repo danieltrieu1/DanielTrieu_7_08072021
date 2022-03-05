@@ -27,6 +27,13 @@ const NavStyled = styled.nav`
   background-color: rgb(255, 87, 54);
   box-shadow: 0px 0px 20px -5px black;
   opacity: 0.97;
+
+  @media (max-width: 1200px) {
+    height:2rem;
+    display: flex;
+    justify-content:center;
+      flex-direction: row;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -36,15 +43,29 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   gap: 5px;
   color: white;
+  @media (max-width: 1200px) {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
 `;
+
+const LinkArea = styled.span`
+  @media (max-width: 1200px) {
+    display: none;
+    visibility: hidden;
+  }
+`
 
 const NavStyledElements = styled.div`
   display: flex;
+  // flex-direction: column;
   justify-content: space-between;
   align-items: center;
 `;
 
 const NavLinks = styled.div`
+  margin-left: 10px;
   display: flex;
   gap: 3rem;
   margin-right: 1rem; ////////////////////////////
@@ -57,30 +78,14 @@ const NavLogo = styled.img`
   object-fit: cover;
   height: 30px;
   width: 170px;
+  margin-right: 1rem;
+  margin-left: 10px;
+  @media (max-width: 1200px) {
+    display: none;  
+    visibility: hidden;
+  }
+
 `;
-
-// .Navbar > .NavbarLink {
-//   border: solid 3px red;
-//   list-style-type: none;
-//   display: flex;
-//   justify-content: flex-end;
-//   gap: 3rem;
-// }
-
-// .NavLink {
-//   text-decoration: none;
-//   color: white;
-// }
-
-// .NavLogo {
-//   border: solid 3px red;
-//   margin: 1rem;
-// }
-
-// .NavLogo > img {
-//   max-height: 10rem;
-//   max-width: 10rem;
-// }
 
 class NavBar extends Component {
   constructor(props) {
@@ -108,39 +113,39 @@ class NavBar extends Component {
 
           {!this.state.currentUser ? (
             <StyledLink to={"/login"} className="NavLink">
-              Login
+              <LinkArea>Se connecter</LinkArea>
             </StyledLink>) : null }
 
           {!this.state.currentUser ? (
             <StyledLink to={"/signup"} className="NavLink">
-              Sign up
+              <LinkArea>S'inscrire</LinkArea>
             </StyledLink>) : null }
 
             {this.state.currentUser ? (
               <StyledLink to={"/profile"} className="NavLink">
-                Mon Profil
-                <FontAwesomeIcon icon={faUserCircle} />
+                <LinkArea>Mon Profil</LinkArea>
+                <FontAwesomeIcon icon={faUserCircle} display="none" />
               </StyledLink>
             ) : null}
 
             {this.state.currentUser ? (
               <StyledLink to={"/dashboard"} className="NavLink">
-                Mon Dashboard
-                <FontAwesomeIcon icon={faUserEdit} />
+                <LinkArea>Mon Dashboard</LinkArea>
+                <FontAwesomeIcon icon={faUserEdit} display="none" />
               </StyledLink>
             ) : null}
 
             {this.state.currentUser ? (
               <StyledLink to={"/formpost"} className="NavLink">
-                Faire une Publication
-                <FontAwesomeIcon icon={faPaperPlane} />
+                <LinkArea>Rédiger une Publication</LinkArea>
+                <FontAwesomeIcon icon={faPaperPlane} display="none" />
               </StyledLink>
             ) : null}
 
             {this.state.currentUser ? (
               <StyledLink to={"/forum"} className="NavLink">
-                Voir le Forum
-                <FontAwesomeIcon icon={faEye} />
+                <LinkArea>Accéder au Forum</LinkArea>
+                <FontAwesomeIcon icon={faEye} display="none" />
               </StyledLink>
             ) : null}
 
@@ -150,7 +155,7 @@ class NavBar extends Component {
                 className="NavLink"
                 onClick={this.handleLogout}
               >
-                Se déconnecter
+                <LinkArea>Se déconnecter</LinkArea>
                 <FontAwesomeIcon icon={faSignOut} />
               </StyledLink>
             ) : null}

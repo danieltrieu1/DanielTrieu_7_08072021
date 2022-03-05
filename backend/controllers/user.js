@@ -142,45 +142,6 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-// exports.updateUser = async (req, res) => {
-//     let userId = parseInt(req.params.id)
-
-//     // Vérification du champ id
-//     if(!userId){
-//         return res.json(400).json({ message: 'Missing Parameter' })
-//     }
-
-//     try{
-//         // Recherche de l'utilisateur et vérification
-//         let user = await User.findOne({ where: { id: userId }, raw: true })
-//         if(user === null){
-//             return res.status(404).json({ message: 'This user does not exist !'})
-//         }
-
-//         if (req.file) {
-//             let newUserData = {
-//                 // name: req.body.name,
-//                 // firstname: req.body.firstname,
-//                 ...JSON.parse(req.body),
-//                 attachment: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-//                 // password: req.body.password
-//             }
-//         } else {
-//             let newUserData = {
-//                 ...JSON.parse(req.body)
-//             }
-//         }
-//         // Mise à jour de l'utilisateur
-
-//         await User.update(newUserData, { where: { id: userId } })
-//         return res.json({ message: 'User Updated' })
-//     }catch(error){
-//         return res.status(500).json({ message: 'Database Error', error: error })
-//     }
-// }
-
-//-------------------------------------------------------------------------
-
 // Suppression de l'utilisateur (Hard Delete)
 exports.deleteUser = (req, res) => {
   let userId = parseInt(req.params.id);

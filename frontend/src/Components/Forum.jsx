@@ -9,7 +9,7 @@ import Logo from "../assets/icon-left-font-monochrome-white.png";
 import axios from "axios";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane, faTrashAlt, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const PageWrapper = styled.div`
   z-index: 0;
@@ -27,8 +27,12 @@ const PostContainerStyled = styled.div`
   flex-direction: column;
   height: 100%;
   padding: 2rem;
-  background: rgb(255,233,199);
-  background: linear-gradient(0deg, rgba(255,233,199,1) 0%, rgba(255,204,124,1) 100%);
+  background: rgb(255, 233, 199);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 233, 199, 1) 0%,
+    rgba(255, 204, 124, 1) 100%
+  );
 `;
 const PostBoxStyled = styled.div`
   border-radius: 10px;
@@ -63,38 +67,60 @@ const AttachmentStyled = styled.img`
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
 `;
+
+const LogoPage = styled.img`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover;
+    width: 11rem;
+    height: 3rem;
+    color:#d5d5d5;
+`
+
 const DeleteButtonStyled = styled.button`
   cursor: pointer;
   position: relative;
   display: inline-block;
   float: right;
   border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   padding: 10px;
-  border-radius: 2rem;
+  border-radius: 10rem;
   transition: all 0.4s ease;
+  color: grey;
 
   &:hover {
     box-shadow: 0px 0px 10px -5px lightgrey;
     transition: all 0.4s ease-in-out;
-    background-color: grey;
+    background-color: rgb(255, 87, 54);
     color: white;
   }
 `;
 
 const ButtonStyled = styled.button`
+  // position: relative;
+  background-color: rgb(255, 87, 54);
+  color: white;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
   border: none;
   padding: 10px;
   border-radius: 2rem;
   transition: all 0.4s ease;
-  width: fit-content;
+  // width: 10rem;
+  // margin: 1rem;
+  // width: fit-content;
+  // border: solid 2px red;
+  margin-bottom: 1rem;
+  // margin-left: 11rem;
+  // margin-right: 11rem;
 
   &:hover {
-    box-shadow: 0px 0px 10px -5px lightgrey;
+    box-shadow: 0px 0px 10px -5px grey;
     transition: all 0.4s ease-in-out;
-    background-color: grey;
+    background-color: rgb(255, 87, 54);
     color: white;
   }
 `;
@@ -138,25 +164,24 @@ const NoteBox = styled.div`
 `;
 
 const FormCard = styled.form`
-
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    min-width: 20rem;
-`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  // min-width: 15rem;
+`;
 
 const FormLabel = styled.label`
-    font-size: 14px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: rgb(13, 32, 89);
-    text-decoration: none;
-    margin: 0;
-`
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: rgb(13, 32, 89);
+  text-decoration: none;
+  margin: 0;
+`;
 
 // const FormArea = styled.textarea`
-    
+
 //     // z-index: 1;
 //     // opacity: 1;
 //     border: none;
@@ -180,6 +205,7 @@ class Forum extends Component {
   constructor(props) {
     postService.getAllPosts();
     noteService.getAllNotes();
+    noteService.createNote();
 
     authService.getCurrentUser();
 
@@ -217,25 +243,19 @@ class Forum extends Component {
     e.preventDefault();
     const formData = new FormData();
 
-
     if (this.state.content !== "") {
       formData.append("content", this.state.content);
     }
 
     axios
-      .put(
-        "http://127.0.0.1:8080/notes/",
-        formData,
-        { headers: authHeader() }
-      )
+      .put("http://127.0.0.1:8080/notes/", formData, { headers: authHeader() })
       .then((response) => {
         this.props.history.push("/forum");
         window.location.reload();
       })
 
       .catch((error) => console.log(error));
-    }
-
+  }
 
   deletePostById(e) {
     e.preventDefault();
@@ -267,7 +287,7 @@ class Forum extends Component {
       <PageWrapper>
         <PostContainerStyled>
           <header>
-            <img className="LogoForum" src={Logo} alt="Logo Groupomania" />
+            <LogoPage src={Logo} alt="Logo Groupomania" />
           </header>
           <PostBoxStyled>
             {this.state.allPosts.map((post) => (
@@ -277,9 +297,7 @@ class Forum extends Component {
                     onClick={this.deletePostById}
                     id={post.id}
                   >
-                  <FontAwesomeIcon icon={faXmark} />
-                  <FontAwesomeIcon icon={faTrashAlt} />
-
+                    <FontAwesomeIcon icon={faTrashAlt} />
                   </DeleteButtonStyled>
                   {/* <span className="userIdPost">{`${post.user_id}`}</span> */}
                   <PostTitleStyled>"{`${post.title}`}"</PostTitleStyled>
@@ -293,28 +311,21 @@ class Forum extends Component {
                   </NoteBox>
                 </ContentPostStyled>
 
-
                 <FormCard onSubmit={this.uploadHandler}>
                   <FormGroup>
-                    <FormLabel htmlFor="content">
-                    </FormLabel>
+                    <FormLabel htmlFor="content"></FormLabel>
                     <FormInput
                       type="text"
                       value={this.state.content}
                       placeholder="Écrire un commentaire ..."
                       onChange={this.onChangeContent}
                     />
-                  </FormGroup>
-
-                  <FormGroup>
                     <ButtonStyled disabled={this.state.loading}>
                       {this.state.loading && <span className=""></span>}
-                      Envoyer
+                      <span>Envoyer</span>
                     </ButtonStyled>
                   </FormGroup>
                 </FormCard>
-
-
               </PostCardStyled>
             ))}
           </PostBoxStyled>
