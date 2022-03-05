@@ -5,14 +5,18 @@ Création d'un réseau social d'entreprise  </br>
 
 <h2>Prérequis</h2> </br>
  </br>
+
 <strong>
 Installer Node.js </br>
 Installer React </br>
 Installer MySQL </br>
 Base de données MySQL </br>
 </strong>
+
  </br>
+
 <strong>Ouvrez un terminal</strong>  </br> 
+</br>
 Connectez-vous à MySQL : ```mysql -u root -p``` </br>
 Tapez votre mot de passe : ```******``` </br>
 Créez la base de données : ```CREATE DATABASE database_development;``` </br>
@@ -22,11 +26,15 @@ Importez le fichier groupomania_database.sql : ```SOURCE groupomania_database.sq
 <h2>Installation et démarrage du Backend</h2>
 
 <strong>Ouvrez un terminal</strong> </br>
+
+</br>
 Allez dans le dossier backend : ```cd backend``` </br>
 Installez toutes les dépendances du projet : ```npm install``` </br>
 Démarrez le serveur Node.js : ```npm run dev``` </br>
 
-<h2>Installation et démarrage du Frontend</h2>
+<h2>Installation et démarrage du Frontend</h2> </br>
+
+</br>
 
 <strong>Ouvrez un terminal</strong> </br>
 Allez dans le dossier frontend : ```cd frontend``` </br>
