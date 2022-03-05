@@ -22,7 +22,6 @@ Importez le fichier groupomania_database.sql : ```SOURCE groupomania_database.sq
 
 <h2>Installation et démarrage du Backend</h2> </br>
 <strong>Ouvrez un terminal</strong> </br>
-
 Allez dans le dossier backend : ```cd backend``` </br>
 Installez toutes les dépendances du projet : ```npm install``` </br>
 Démarrez le serveur Node.js : ```npm run dev``` </br>
