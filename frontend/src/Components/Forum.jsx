@@ -321,7 +321,6 @@ class Forum extends Component {
     return (
       <PageWrapper>
       
-      {/* {this.state.content.allPosts === "" ? ( */}
 
         <PostContainerStyled>
           <header>
@@ -383,7 +382,8 @@ class Forum extends Component {
             ))}
           </PostBoxStyled>
         </PostContainerStyled>
-      {/* ) :  null } */}
+
+
       </PageWrapper>
     );
   }
