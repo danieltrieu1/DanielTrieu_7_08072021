@@ -160,18 +160,6 @@ export default class Dashboard extends Component {
     };
   }
 
-  // getAllUsers() {
-  //   if(!this.getCurrentUser) {
-  //     return this.users.filter(role => role.isAdmin === 1 && !role.isAdmin === 0)
-  //   }
-
-  //   if(!this.catchUser) {
-  //     return this.users.filter(element => element.Roles[1] && !element.Roles[2]);
-  //   } else if(this.catchUser) {
-  //     return this.users.filter(element => element.pseudo == this.searchUser && element.Roles[1] && !element.Roles[2])
-  //   }
-  // },
-
   onChangeUsername(e) {
     this.setState({ username: e.target.value });
   }
