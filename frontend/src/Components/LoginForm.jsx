@@ -127,7 +127,6 @@ class Login extends Component {
         error => {
           console.log(error)
           this.setState({
-            // handleError: alert("Il y a une erreur"),
             loading: false,
           });
         }
