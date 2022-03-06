@@ -34,5 +34,9 @@ Allez dans le dossier frontend : ```cd frontend``` </br>
 Installez toutes les dépendances du projet : ```npm install``` </br>
 Démarrez l'application : ```npm run start``` </br>
 
+<strong>Admininistration Login</strong> </br>
+```LOGIN: admin```
+```PASSWORD: Admin123!```
+
 <strong>Testez l'application</strong> </br>
 Ouvrez votre navigateur et allez sur : ```http://127.0.0.1:3000/``` 
