@@ -34,21 +34,6 @@ exports.getNote = async (req, res) => {
         res.status(500).json({ message: 'Database Error', error: error })
     }
 
-
-    //--------------------------------------------------------------------------------------
-    // CODE PAS FACTORISÉ CORRECTEMENT
-    // // Récupération du message
-    // Post.findOne({ where: {id: postId, raw: true} })
-    //     .then(post => {
-    //         if (post === null) {
-    //             return res.status(404).json({ message : 'This post does not exit !' })
-    //         }
-
-    //         // Message trouvé
-    //         return res.json({ data: post }) 
-    //     })
-    //     .catch(error => res.status(500).json({ message: 'Database Error', error: error }))
-    //---------------------------------------------------------------------------------------
 }
 
 // Création du commentaire
@@ -69,17 +54,8 @@ exports.createNote = async (req, res) => {
             content: req.body.content,
             // user_id: req.body.user_id,
             PostId: parseInt(req.body.PostId),
-            // attachment: `${req.protocol}://${req.get("host")}/images/${
-            //   req.file.filename
-            // }`,
           };
       
-        // if (note !== null) {
-        //     return res.status(409).json({ message: `The note note already exists !` })
-        // }
-
-        // Création du commentaire
-        // note = await 
         Note.create(newNote)
         .then(() => {
             return res.json({ message: 'Note Created' })
@@ -89,24 +65,6 @@ exports.createNote = async (req, res) => {
     }
 }
     
-
-    //-----------------------------------------------------------------------
-    // CODE NON FACTORISE CORRECTEMENT
-    // Post.findOne({ where: { user_id: user_id} && { title: title } && { content: content }, raw: true})
-    //     .then(post => {
-    //         // Vérification de l'existence de l'utilisateur
-    //         if (post !== null) {
-    //             return res.status(400).json({ message: `This message already exists !`})
-    //         }
-
-    //                 // Création du message
-    //                 Post.create(req.body)
-    //                     .then(post => res.json({ message: 'Post Created', data: post }))
-    //                     .catch(error => res.status(500).json({ message: 'Database Error', error: error }))
-    //             })
-    //     .catch(error => res.status(500).json({ message: 'Database Error', error: error }))
-    //-----------------------------------------------------------------------
-
 // Modification du commentaire
 exports.updateNote = async (req, res) => {
     let noteId = parseInt(req.params.id)

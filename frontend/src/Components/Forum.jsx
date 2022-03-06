@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-// import AuthService from "../services/auth.service";
 import postService from "../services/post.service";
-import noteService from "../services/note.service";
 import authService from "../services/auth.service";
 import authHeader from "../services/auth-header";
 import "../App.css";
@@ -9,7 +7,7 @@ import Logo from "../assets/icon-left-font-monochrome-white.png";
 import axios from "axios";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose, faPaperPlane, faTrashAlt, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faClose, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 const PageWrapper = styled.div`
   z-index: 0;
@@ -217,27 +215,6 @@ const FormLabel = styled.label`
   margin: 0;
 `;
 
-// const FormArea = styled.textarea`
-
-//     // z-index: 1;
-//     // opacity: 1;
-//     border: none;
-//     padding: 10px;
-//     border-radius: 4px;
-//     height: 8rem;
-// `
-
-// const StyledButton = styled.button`
-//     cursor: pointer;
-//     border: none;
-//     border-radius: 4px;
-//     padding: 10px;
-//     font-size: 16px;
-//     background-color: #ff5736;
-//     color: white;
-//     width: 100%;
-// `
-
 class Forum extends Component {
   constructor(props) {
     postService.getAllPosts();
@@ -320,7 +297,7 @@ class Forum extends Component {
             localStorage.setItem("posts", JSON.stringify(response.data));
             this.setState({ allPosts: JSON.parse(localStorage.getItem("posts")) });
         });
-      });
+    });
   }
 
   render() {
