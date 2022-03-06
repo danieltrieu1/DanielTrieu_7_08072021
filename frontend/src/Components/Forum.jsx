@@ -11,22 +11,6 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose, faPaperPlane, faTrashAlt, faXmark } from "@fortawesome/free-solid-svg-icons";
 
-const DeleteNoteButtonStyled = styled.button`
-  cursor: pointer;
-  position: relative;
-  display: inline-block;
-  float: right;
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  padding: 10px;
-  border-radius: 10rem;
-  transition: all 0.4s ease;
-  color: grey;
-  `;
-
-
 const PageWrapper = styled.div`
   z-index: 0;
   display: flex;
@@ -115,6 +99,27 @@ const DeleteButtonStyled = styled.button`
     color: white;
   }
 `;
+
+const DeleteNoteButtonStyled = styled.button`
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  float: right;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  padding: 10px;
+  border-radius: 10rem;
+  transition: all 0.4s ease;
+  color: grey;
+  &:hover {
+    box-shadow: 0px 0px 10px -5px lightgrey;
+    transition: all 0.4s ease-in-out;
+    background-color: grey;
+    color: white;
+  }
+  `;
 
 const ButtonStyled = styled.button`
   // position: relative;

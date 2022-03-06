@@ -7,6 +7,7 @@ import styled from "styled-components";
 import "../App.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import Profil from "../assets/icone-utilisateur-gris.png"
 
 const PageWrapper = styled.div`
   // z-index: 0;
@@ -296,8 +297,8 @@ export default class Dashboard extends Component {
                   <div className="" md="3" key={user.id}>
                     <CardContent>
                       <ProfilePicture>
-                        <ProfileImage
-                          src="./assets/icone-utilisateur-gris.png"
+                      <ProfileImage
+                          src={Profil}
                           alt=""
                         />
                       </ProfilePicture>
