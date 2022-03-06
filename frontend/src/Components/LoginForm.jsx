@@ -92,7 +92,7 @@ const StyledLink = styled(Link)`
 
 
 
-export default class Login extends Component {
+class Login extends Component {
 
   constructor(props) {
 
@@ -179,3 +179,5 @@ export default class Login extends Component {
     );
   }
 }
+
+export default Login
