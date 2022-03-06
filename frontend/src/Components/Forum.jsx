@@ -186,7 +186,6 @@ const NoteBox = styled.div`
   max-height: 8rem;
   overflow-y: scroll;
   background-color: #f5f5f5;
-  // background-color: lightblue;
 `;
 
 const NoteArea = styled.div` 
