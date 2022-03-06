@@ -175,7 +175,7 @@ const FormInput = styled.textarea`
 
 const NoteBox = styled.div`
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   // border: solid 2px red;
   min-height: 5rem;
   padding: 10px;
@@ -186,7 +186,7 @@ const NoteBox = styled.div`
   // background-color: lightblue;
 `;
 
-const NoteArea = styled.div`
+const NoteArea = styled.div` 
   color: rgb(54, 54, 54);
   border-radius: 5px;
   background-color: #e5e5e5;
@@ -278,6 +278,7 @@ class Forum extends Component {
         .then(response => {
             localStorage.setItem("posts", JSON.stringify(response.data));
             this.setState({ allPosts: JSON.parse(localStorage.getItem("posts")) });
+            this.setState({ content: "" });
         });
       })
 

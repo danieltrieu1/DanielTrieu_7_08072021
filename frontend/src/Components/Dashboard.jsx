@@ -245,7 +245,6 @@ export default class Dashboard extends Component {
           window.location.reload();
         }
       })
-      // .then(alert("Vos changements ont bien été pris en compte !"))
       .catch((error) => console.log(error));
   }
   render() {

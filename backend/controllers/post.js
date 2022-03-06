@@ -71,29 +71,25 @@ exports.createPost = async (req, res) => {
       
     } catch (error) {
       return res.status(500).json({ message: "Database Error", error: error });
-    }}
+    }
+  } else {
+      try {
 
-  // } else {
-
-  //   try {
-  //     // // Vérification si le message existe
-  //     // let post = await Post.findOne({ where: { title: title }, raw: true });
+      let newPost = {
+        title: req.body.title,
+        content: req.body.content,
+        user_id: req.body.user_id,
+      };
   
-  //     // Création du message
-  //     let newPost = {
-  //       title: req.body.title,
-  //       content: req.body.content,
-  //       user_id: req.body.user_id,
-  //     };
-  
-  //     post = await Post.create(newPost);
-  //     return res.json({ message: "Post Created", data: post });
-      
-  //   } catch (error) {
-  //     return res.status(500).json({ message: "Database Error", error: error });
-  //   }
+      Post.create(newPost)
+      .then(() => {
+        return res.json({ message: "Post Created"});
+      })      
+    } catch (error) {
+      return res.status(500).json({ message: "Database Error", error: error });
+    }
 
-  // }
+  }
 
 };
 
