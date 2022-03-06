@@ -5,8 +5,6 @@ const checkToken = require('../middleware/checkToken')
 
 const noteCtrl = require('../controllers/note')
 
-// const likeCtrl = require("../controllers/like")
-
 // Récupération du router
 let router = express.Router()
 
